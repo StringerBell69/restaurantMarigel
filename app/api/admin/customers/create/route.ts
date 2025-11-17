@@ -21,9 +21,8 @@ export async function POST(request: NextRequest) {
       lastName,
       email,
       phone,
-      preferredLanguage,
       dietaryRestrictions,
-      allergies,
+      allergens,
       notes,
     } = body;
 
@@ -57,9 +56,8 @@ export async function POST(request: NextRequest) {
         lastName,
         email,
         phone,
-        preferredLanguage: preferredLanguage || 'en',
         dietaryRestrictions: dietaryRestrictions || [],
-        allergies: allergies || null,
+        allergens: allergens || [],
         notes: notes || null,
       })
       .returning();
