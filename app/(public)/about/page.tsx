@@ -13,7 +13,7 @@ export default function AboutPage() {
             À Propos de Marigel
           </h1>
           <p className="text-lg text-white/90 md:text-xl">
-            Une histoire de passion, d'excellence et de tradition culinaire française
+            Une histoire de passion, d&apos;excellence et de tradition culinaire française
           </p>
         </div>
       </section>
@@ -30,12 +30,12 @@ export default function AboutPage() {
             </p>
             <p>
               Pendant plus de trois décennies, nous avons perfectionné notre art, en utilisant uniquement
-              les meilleurs ingrédients locaux et de saison. Notre engagement envers l'excellence nous a
-              valu de nombreux prix et la reconnaissance de nos pairs dans l'industrie culinaire.
+              les meilleurs ingrédients locaux et de saison. Notre engagement envers l&apos;excellence nous a
+              valu de nombreux prix et la reconnaissance de nos pairs dans l&apos;industrie culinaire.
             </p>
             <p>
-              Aujourd'hui, sous la direction du Chef exécutif Marie Dubois, nous continuons à honorer
-              l'héritage de notre fondateur tout en repoussant les limites de la créativité culinaire.
+              Aujourd&apos;hui, sous la direction du Chef exécutif Marie Dubois, nous continuons à honorer
+              l&apos;héritage de notre fondateur tout en repoussant les limites de la créativité culinaire.
               Chaque plat raconte une histoire, chaque repas est une célébration.
             </p>
           </div>
@@ -70,7 +70,7 @@ export default function AboutPage() {
                 <h3 className="mb-2 text-xl font-semibold">Passion</h3>
                 <p className="text-muted-foreground">
                   Notre amour pour la cuisine française transparaît dans chaque plat que nous servons.
-                  C'est plus qu'un travail, c'est notre vocation.
+                  C&apos;est plus qu&apos;un travail, c&apos;est notre vocation.
                 </p>
               </CardContent>
             </Card>
@@ -109,7 +109,7 @@ export default function AboutPage() {
                 </div>
               </div>
               <p className="text-sm text-muted-foreground">
-                Avec plus de 20 ans d'expérience dans les restaurants étoilés Michelin,
+                Avec plus de 20 ans d&apos;expérience dans les restaurants étoilés Michelin,
                 Chef Marie apporte son expertise et sa créativité à chaque plat de notre menu.
               </p>
             </div>
@@ -141,8 +141,8 @@ export default function AboutPage() {
                 </div>
               </div>
               <p className="text-sm text-muted-foreground">
-                Sophie et son équipe veillent à ce que chaque convive bénéficie d'un service
-                irréprochable et d'une expérience mémorable.
+                Sophie et son équipe veillent à ce que chaque convive bénéficie d&apos;un service
+                irréprochable et d&apos;une expérience mémorable.
               </p>
             </div>
 
@@ -183,7 +183,7 @@ export default function AboutPage() {
 
               <div className="rounded-lg border bg-background p-6">
                 <Award className="mx-auto mb-3 h-8 w-8 text-restaurant-burgundy" />
-                <h3 className="mb-2 font-semibold">Prix d'Excellence</h3>
+                <h3 className="mb-2 font-semibold">Prix d&apos;Excellence</h3>
                 <p className="text-sm text-muted-foreground">
                   Wine Spectator Award of Excellence 2020-2024
                 </p>
@@ -193,13 +193,13 @@ export default function AboutPage() {
                 <Award className="mx-auto mb-3 h-8 w-8 text-restaurant-burgundy" />
                 <h3 className="mb-2 font-semibold">Meilleur Restaurant</h3>
                 <p className="text-sm text-muted-foreground">
-                  Élu "Meilleur Restaurant de la Ville" 5 années consécutives
+                  Élu &quot;Meilleur Restaurant de la Ville&quot; 5 années consécutives
                 </p>
               </div>
 
               <div className="rounded-lg border bg-background p-6">
                 <Award className="mx-auto mb-3 h-8 w-8 text-restaurant-burgundy" />
-                <h3 className="mb-2 font-semibold">Chef de l'Année</h3>
+                <h3 className="mb-2 font-semibold">Chef de l&apos;Année</h3>
                 <p className="text-sm text-muted-foreground">
                   Chef Marie Dubois - Prix Gault & Millau 2023
                 </p>
@@ -216,7 +216,7 @@ export default function AboutPage() {
             Rejoignez Notre Histoire
           </h2>
           <p className="mb-8 text-lg text-white/90">
-            Réservez votre table et découvrez pourquoi nous sommes l'un des restaurants
+            Réservez votre table et découvrez pourquoi nous sommes l&apos;un des restaurants
             les plus appréciés de la région
           </p>
           <Link href="/reservation">
