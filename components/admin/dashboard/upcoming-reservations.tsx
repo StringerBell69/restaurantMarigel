@@ -24,12 +24,12 @@ export async function UpcomingReservations() {
   return (
     <Card className="p-6">
       <div className="mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">Upcoming Reservations</h3>
-        <p className="text-sm text-gray-600">Next 5 reservations</p>
+        <h3 className="text-lg font-semibold text-gray-900">Réservations à Venir</h3>
+        <p className="text-sm text-gray-600">5 prochaines réservations</p>
       </div>
       <div className="space-y-4">
         {reservationsWithCustomers.length === 0 ? (
-          <p className="text-center text-gray-500 py-8">No upcoming reservations</p>
+          <p className="text-center text-gray-500 py-8">Aucune réservation à venir</p>
         ) : (
           reservationsWithCustomers.map((reservation) => (
             <div
@@ -51,7 +51,7 @@ export async function UpcomingReservations() {
                   </span>
                   <span className="flex items-center gap-1">
                     <Users className="h-4 w-4" />
-                    {reservation.guestsCount} guests
+                    {reservation.guestsCount} convives
                   </span>
                 </div>
               </div>
