@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { generateOTP, storeOTP } from '@/lib/otp';
 import { sendOTPEmail } from '@/lib/email';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * POST /api/otp/send
  * Send OTP code to user's email/phone
