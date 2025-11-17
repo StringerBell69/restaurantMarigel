@@ -31,12 +31,12 @@ export function ReservationsChart() {
   return (
     <Card className="p-6">
       <div className="mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">Reservations This Week</h3>
-        <p className="text-sm text-gray-600">Daily reservation count</p>
+        <h3 className="text-lg font-semibold text-gray-900">Réservations de la Semaine</h3>
+        <p className="text-sm text-gray-600">Nombre de réservations par jour</p>
       </div>
       {loading ? (
         <div className="h-[300px] flex items-center justify-center">
-          <p className="text-gray-500">Loading chart...</p>
+          <p className="text-gray-500">Chargement du graphique...</p>
         </div>
       ) : (
         <ResponsiveContainer width="100%" height={300}>

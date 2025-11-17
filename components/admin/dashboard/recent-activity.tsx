@@ -27,16 +27,16 @@ export async function RecentActivity() {
 
       let icon = Calendar;
       let color = 'text-blue-600 bg-blue-100';
-      let action = 'created a reservation';
+      let action = 'a créé une réservation';
 
       if (reservation.status === 'confirmed') {
         icon = CheckCircle;
         color = 'text-green-600 bg-green-100';
-        action = 'confirmed reservation';
+        action = 'a confirmé une réservation';
       } else if (reservation.status === 'cancelled') {
         icon = XCircle;
         color = 'text-red-600 bg-red-100';
-        action = 'cancelled reservation';
+        action = 'a annulé une réservation';
       }
 
       return {
@@ -53,8 +53,8 @@ export async function RecentActivity() {
   return (
     <Card className="p-6">
       <div className="mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">Recent Activity</h3>
-        <p className="text-sm text-gray-600">Latest updates</p>
+        <h3 className="text-lg font-semibold text-gray-900">Activité Récente</h3>
+        <p className="text-sm text-gray-600">Dernières mises à jour</p>
       </div>
       <div className="space-y-4 max-h-[300px] overflow-y-auto">
         {activities.map((activity) => (

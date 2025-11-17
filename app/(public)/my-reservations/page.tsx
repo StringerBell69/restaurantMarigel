@@ -19,8 +19,8 @@ interface Reservation {
 }
 
 export default function MyReservationsPage() {
-  const [searchType, setSearchType] = useState<"email" | "phone">("email");
-  const [searchValue, setSearchValue] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [email, setEmail] = useState("");
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [searched, setSearched] = useState(false);
 
@@ -102,50 +102,32 @@ export default function MyReservationsPage() {
                 <CardTitle className="font-serif text-2xl">Rechercher Mes Réservations</CardTitle>
               </div>
               <CardDescription>
-                Entrez votre email ou numéro de téléphone pour voir vos réservations
+                Entrez votre prénom et email pour voir vos réservations
               </CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSearch} className="space-y-6">
                 <div className="space-y-2">
-                  <Label>Type de Recherche</Label>
-                  <div className="flex gap-4">
-                    <Button
-                      type="button"
-                      variant={searchType === "email" ? "default" : "outline"}
-                      onClick={() => setSearchType("email")}
-                      className="flex-1"
-                    >
-                      <Mail className="mr-2 h-4 w-4" />
-                      Email
-                    </Button>
-                    <Button
-                      type="button"
-                      variant={searchType === "phone" ? "default" : "outline"}
-                      onClick={() => setSearchType("phone")}
-                      className="flex-1"
-                    >
-                      <Phone className="mr-2 h-4 w-4" />
-                      Téléphone
-                    </Button>
-                  </div>
+                  <Label htmlFor="firstName">Prénom</Label>
+                  <Input
+                    id="firstName"
+                    type="text"
+                    required
+                    placeholder="Votre prénom"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="search">
-                    {searchType === "email" ? "Adresse Email" : "Numéro de Téléphone"}
-                  </Label>
+                  <Label htmlFor="email">Adresse Email</Label>
                   <Input
-                    id="search"
-                    type={searchType === "email" ? "email" : "tel"}
+                    id="email"
+                    type="email"
                     required
-                    placeholder={
-                      searchType === "email"
-                        ? "votre@email.com"
-                        : "+33 6 12 34 56 78"
-                    }
-                    value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
+                    placeholder="votre@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
 
@@ -177,7 +159,7 @@ export default function MyReservationsPage() {
                   <Calendar className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
                   <p className="text-lg font-semibold">Aucune réservation trouvée</p>
                   <p className="text-muted-foreground">
-                    Vous n'avez pas encore de réservation avec cette adresse email/téléphone
+                    Vous n'avez pas encore de réservation avec ce prénom et cette adresse email
                   </p>
                 </CardContent>
               </Card>

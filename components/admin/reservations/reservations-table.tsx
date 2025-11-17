@@ -24,8 +24,7 @@ export async function ReservationsTable({
   status,
   search,
 }: ReservationsTableProps) {
-  const today = new Date().toISOString().split('T')[0];
-  const filterDate = date || today;
+  const filterDate = date;
 
   let query = db
     .select({
@@ -80,12 +79,12 @@ export async function ReservationsTable({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Reservation #</TableHead>
-            <TableHead>Customer</TableHead>
-            <TableHead>Date & Time</TableHead>
-            <TableHead>Guests</TableHead>
+            <TableHead>Réservation #</TableHead>
+            <TableHead>Client</TableHead>
+            <TableHead>Date & Heure</TableHead>
+            <TableHead>Convives</TableHead>
             <TableHead>Table</TableHead>
-            <TableHead>Status</TableHead>
+            <TableHead>Statut</TableHead>
             <TableHead>Contact</TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
@@ -94,7 +93,7 @@ export async function ReservationsTable({
           {results.length === 0 ? (
             <TableRow>
               <TableCell colSpan={8} className="text-center py-8 text-gray-500">
-                No reservations found
+                Aucune réservation trouvée
               </TableCell>
             </TableRow>
           ) : (

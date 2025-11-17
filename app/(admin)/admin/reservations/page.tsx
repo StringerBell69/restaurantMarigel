@@ -13,13 +13,13 @@ export default async function ReservationsPage({
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Reservations</h1>
-          <p className="text-gray-600 mt-1">Manage all restaurant reservations</p>
+          <h1 className="text-3xl font-bold text-gray-900">Réservations</h1>
+          <p className="text-gray-600 mt-1">Gérer toutes les réservations du restaurant</p>
         </div>
         <Link href="/admin/reservations/new">
           <Button className="bg-restaurant-burgundy hover:bg-restaurant-burgundy/90">
             <Plus className="h-4 w-4 mr-2" />
-            New Reservation
+            Nouvelle Réservation
           </Button>
         </Link>
       </div>

@@ -8,31 +8,31 @@ export async function StatsCards() {
 
   const stats = [
     {
-      title: "Today's Reservations",
+      title: "Réservations Aujourd'hui",
       value: todayStats?.total || 0,
       icon: Calendar,
-      description: `${todayStats?.confirmed || 0} confirmed`,
+      description: `${todayStats?.confirmed || 0} confirmées`,
       color: 'text-blue-600 bg-blue-100',
     },
     {
-      title: "Today's Guests",
+      title: "Convives Aujourd'hui",
       value: todayStats?.totalGuests || 0,
       icon: Users,
-      description: `${todayStats?.checkedIn || 0} checked in`,
+      description: `${todayStats?.checkedIn || 0} arrivés`,
       color: 'text-green-600 bg-green-100',
     },
     {
-      title: 'Completed Today',
+      title: 'Terminées Aujourd\'hui',
       value: todayStats?.completed || 0,
       icon: CheckCircle,
-      description: `${todayStats?.pending || 0} pending`,
+      description: `${todayStats?.pending || 0} en attente`,
       color: 'text-purple-600 bg-purple-100',
     },
     {
-      title: 'Upcoming Reservations',
+      title: 'Réservations à Venir',
       value: upcomingCount.length,
       icon: Clock,
-      description: 'Next 7 days',
+      description: '7 prochains jours',
       color: 'text-orange-600 bg-orange-100',
     },
   ];
