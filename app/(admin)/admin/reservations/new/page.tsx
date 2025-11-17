@@ -204,7 +204,7 @@ export default function NewReservationPage() {
                     <SelectValue placeholder="Select an occasion (optional)" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">None</SelectItem>
+                    <SelectItem value="none">None</SelectItem>
                     <SelectItem value="birthday">Birthday</SelectItem>
                     <SelectItem value="anniversary">Anniversary</SelectItem>
                     <SelectItem value="business">Business Dinner</SelectItem>
