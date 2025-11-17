@@ -3,6 +3,8 @@ import { db } from '@/lib/db';
 import { restaurantTables, reservations, tableBlocks } from '@/lib/db/schema';
 import { and, eq, or, gte, lte, sql } from 'drizzle-orm';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * GET /api/tables/availability
  * Check table availability for a specific date, time, and party size
