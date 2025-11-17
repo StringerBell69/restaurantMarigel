@@ -271,7 +271,7 @@ export default function ReservationPage() {
                   className="w-full"
                 />
                 <p className="text-xs text-muted-foreground">
-                  Nous acceptons les réservations jusqu'à 60 jours à l'avance
+                  Nous acceptons les réservations jusqu&apos;à 60 jours à l&apos;avance
                 </p>
               </div>
 
@@ -671,9 +671,9 @@ export default function ReservationPage() {
             </div>
 
             <div className="rounded-lg border border-restaurant-burgundy/20 bg-restaurant-burgundy/5 p-4">
-              <h4 className="font-semibold mb-2">Politique d'Annulation</h4>
+              <h4 className="font-semibold mb-2">Politique d&apos;Annulation</h4>
               <p className="text-sm text-muted-foreground">
-                Annulation gratuite jusqu'à 24 heures avant votre réservation.
+                Annulation gratuite jusqu&apos;à 24 heures avant votre réservation.
                 Les annulations tardives peuvent entraîner des frais.
               </p>
             </div>
@@ -715,10 +715,10 @@ export default function ReservationPage() {
         <CardContent className="pt-6">
           <h3 className="mb-2 font-semibold">Informations sur la Réservation</h3>
           <ul className="space-y-1 text-sm text-muted-foreground">
-            <li>• Les réservations peuvent être faites jusqu'à 60 jours à l'avance</li>
+            <li>• Les réservations peuvent être faites jusqu&apos;à 60 jours à l&apos;avance</li>
             <li>• Minimum 2 heures de préavis requis pour les réservations le jour même</li>
             <li>• Les grands groupes (6+) peuvent nécessiter un acompte</li>
-            <li>• Annulation gratuite jusqu'à 24 heures avant votre réservation</li>
+            <li>• Annulation gratuite jusqu&apos;à 24 heures avant votre réservation</li>
             <li>• Vous recevrez une confirmation par WhatsApp ou email</li>
           </ul>
         </CardContent>

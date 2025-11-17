@@ -99,7 +99,7 @@ function SuccessPageContent() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-green-600">✓</span>
-                <span>En cas de changement, contactez-nous au moins 24h à l'avance</span>
+                <span>En cas de changement, contactez-nous au moins 24h à l&apos;avance</span>
               </li>
             </ul>
           </div>
@@ -109,7 +109,7 @@ function SuccessPageContent() {
             <Link href="/" className="flex-1">
               <Button variant="outline" className="w-full" size="lg">
                 <Home className="mr-2 h-5 w-5" />
-                Retour à l'Accueil
+                Retour à l&apos;Accueil
               </Button>
             </Link>
             <Link href="/my-reservations" className="flex-1">
@@ -133,7 +133,7 @@ function SuccessPageContent() {
       {/* Contact Info */}
       <Card className="border-restaurant-burgundy/20 bg-restaurant-burgundy/5">
         <CardContent className="pt-6">
-          <h3 className="mb-3 font-semibold">Besoin d'Aide ?</h3>
+          <h3 className="mb-3 font-semibold">Besoin d&apos;Aide ?</h3>
           <div className="space-y-2 text-sm">
             <p className="flex items-center gap-2">
               <Phone className="h-4 w-4 text-restaurant-burgundy" />
