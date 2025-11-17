@@ -11,8 +11,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Restaurant Marigel - Fine Dining Reservations",
-  description: "Experience exceptional dining at Restaurant Marigel. Book your table online with our advanced reservation system.",
+  title: "SABORES DE PORTUGAL - Fine Dining Reservations",
+  description: "Experience exceptional dining at SABORES DE PORTUGAL. Book your table online with our advanced reservation system.",
   keywords: ["restaurant", "fine dining", "reservations", "booking", "table reservation"],
 };
 

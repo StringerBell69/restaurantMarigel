@@ -22,7 +22,7 @@ async function seed() {
     console.log('📋 Inserting default settings...');
 
     const settings = [
-      { settingKey: 'restaurant_name', settingValue: '"Restaurant Marigel"' },
+      { settingKey: 'restaurant_name', settingValue: '"SABORES DE PORTUGAL"' },
       { settingKey: 'max_advance_booking_days', settingValue: '60' },
       { settingKey: 'min_advance_booking_hours', settingValue: '2' },
       { settingKey: 'default_reservation_duration', settingValue: '120' },
