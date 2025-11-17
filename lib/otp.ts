@@ -4,7 +4,7 @@
 
 import { db } from './db';
 import { otpVerifications } from './db/schema/customers';
-import { eq, and, sql } from 'drizzle-orm';
+import { eq, and, sql, desc } from 'drizzle-orm';
 
 /**
  * Generate a 6-digit OTP code
@@ -81,7 +81,7 @@ export async function verifyOTP(
         eq(otpVerifications.isUsed, false)
       )
     )
-    .orderBy(sql`${otpVerifications.createdAt} DESC`)
+    .orderBy(desc(otpVerifications.createdAt))
     .limit(1);
 
   console.log('📊 Query result:', otpData);
@@ -164,7 +164,7 @@ export async function hasValidOTP(email: string): Promise<boolean> {
         eq(otpVerifications.isUsed, false)
       )
     )
-    .orderBy(sql`${otpVerifications.createdAt} DESC`)
+    .orderBy(desc(otpVerifications.createdAt))
     .limit(1);
 
   if (!otpData) return false;
