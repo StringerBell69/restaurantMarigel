@@ -41,16 +41,24 @@ export async function storeOTP(
     );
 
   // Insert new OTP
-  await db.insert(otpVerifications).values({
+  const [inserted] = await db.insert(otpVerifications).values({
     contactType,
     contactValue,
     otpCode: code,
     expiresAt,
     attempts: 0,
     isUsed: false,
-  });
+  }).returning();
 
   console.log(`📧 Code de développement: ${code}`);
+  console.log('💾 Stored in DB:', {
+    contactType,
+    contactValue,
+    otpCode: code,
+    codeLength: code.length,
+    codeType: typeof code,
+    expiresAt,
+  });
 }
 
 /**
@@ -64,6 +72,13 @@ export async function verifyOTP(
   code: string
 ): Promise<{ success: boolean; message: string }> {
   const contactValue = email.toLowerCase();
+
+  console.log('🔍 Verifying OTP:', {
+    email: contactValue,
+    code,
+    codeLength: code.length,
+    codeType: typeof code,
+  });
 
   // Get OTP from database
   const [otpData] = await db
@@ -79,8 +94,20 @@ export async function verifyOTP(
     .orderBy(sql`${otpVerifications.createdAt} DESC`)
     .limit(1);
 
+  console.log('📊 OTP Data from DB:', otpData ? {
+    storedCode: otpData.otpCode,
+    storedCodeLength: otpData.otpCode.length,
+    storedCodeType: typeof otpData.otpCode,
+    contactValue: otpData.contactValue,
+    expiresAt: otpData.expiresAt,
+    attempts: otpData.attempts,
+    isUsed: otpData.isUsed,
+    codesMatch: otpData.otpCode === code,
+  } : 'No OTP found');
+
   // Check if OTP exists
   if (!otpData) {
+    console.log('❌ No OTP found in database');
     return {
       success: false,
       message: 'Code de vérification invalide ou expiré',
