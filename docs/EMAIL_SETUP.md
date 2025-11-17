@@ -33,7 +33,7 @@ Resend fournit un domaine de test gratuit : `onboarding@resend.dev`
 
 1. Dans le dashboard Resend, allez dans **Domains**
 2. Cliquez sur **Add Domain**
-3. Entrez votre domaine (ex: `restaurantmarigel.com`)
+3. Entrez votre domaine (ex: `sumbo.fr`)
 4. Suivez les instructions pour ajouter les enregistrements DNS :
    - Enregistrement SPF
    - Enregistrement DKIM
@@ -51,11 +51,11 @@ Value: resend._domainkey.resend.com
 
 Type: TXT
 Host: _dmarc
-Value: v=DMARC1; p=none; rua=mailto:admin@restaurantmarigel.com
+Value: v=DMARC1; p=none; rua=mailto:admin@sumbo.fr
 ```
 
 5. Attendez la vérification (peut prendre jusqu'à 48h)
-6. Une fois vérifié, vous pouvez envoyer des emails depuis `noreply@restaurantmarigel.com`
+6. Une fois vérifié, vous pouvez envoyer des emails depuis `noreply@sumbo.fr`
 
 ### 4. Configurer les variables d'environnement
 
@@ -84,7 +84,7 @@ Puis testez en créant une réservation. L'email sera envoyé uniquement à l'ad
 Une fois votre domaine vérifié, gardez la configuration actuelle :
 
 ```typescript
-from: 'Restaurant Marigel <noreply@restaurantmarigel.com>',
+from: 'Restaurant Marigel <noreply@sumbo.fr>',
 ```
 
 ## Limites et tarifs

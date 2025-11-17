@@ -93,7 +93,7 @@ export default function LoginPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="admin@restaurantmarigel.com"
+                placeholder="admin@sumbo.fr"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required

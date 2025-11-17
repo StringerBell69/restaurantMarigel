@@ -17,7 +17,7 @@ export async function sendOTPEmail({
 }: SendOTPEmailParams) {
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Restaurant Marigel <noreply@restaurantmarigel.com>',
+      from: 'Restaurant Marigel <noreply@sumbo.fr>',
       to: email,
       subject: 'Votre code de vérification - Restaurant Marigel',
       html: `

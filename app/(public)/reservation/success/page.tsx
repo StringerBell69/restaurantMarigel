@@ -141,7 +141,7 @@ function SuccessPageContent() {
             </p>
             <p className="flex items-center gap-2">
               <Mail className="h-4 w-4 text-restaurant-burgundy" />
-              <span>Email: reservations@restaurantmarigel.com</span>
+              <span>Email: reservations@sumbo.fr</span>
             </p>
             <p className="mt-4 text-xs text-muted-foreground">
               Notre équipe est disponible du lundi au samedi, de 10h à 22h pour répondre à toutes vos questions.

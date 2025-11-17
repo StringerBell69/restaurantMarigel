@@ -158,7 +158,7 @@ export default function HomePage() {
               <h3 className="mb-2 font-semibold">Contact</h3>
               <p className="text-sm text-muted-foreground">
                 Téléphone: +33 1 23 45 67 89<br />
-                Email: info@restaurantmarigel.com
+                Email: info@sumbo.fr
               </p>
             </div>
           </div>
