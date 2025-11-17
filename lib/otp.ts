@@ -99,7 +99,7 @@ export async function verifyOTP(
   }
 
   // Check max attempts (3 attempts)
-  if (otpData.attempts >= 3) {
+  if ((otpData.attempts ?? 0) >= 3) {
     await db
       .delete(otpVerifications)
       .where(eq(otpVerifications.id, otpData.id));
@@ -113,11 +113,11 @@ export async function verifyOTP(
   if (otpData.otpCode !== code) {
     await db
       .update(otpVerifications)
-      .set({ attempts: otpData.attempts + 1 })
+      .set({ attempts: otpData.attempts ? otpData.attempts + 1 : 1 })
       .where(eq(otpVerifications.id, otpData.id));
     return {
       success: false,
-      message: `Code incorrect. ${3 - (otpData.attempts + 1)} tentatives restantes`,
+      message: `Code incorrect. ${3 - (otpData.attempts ? otpData.attempts + 1 : 1)} tentatives restantes`,
     };
   }
 
