@@ -79,9 +79,6 @@ export async function POST(request: NextRequest) {
         lastName,
         email,
         phone,
-        preferredLanguage: 'fr',
-        communicationPreference: 'email',
-        isActive: true,
       });
       customer = newCustomer;
     }
@@ -96,14 +93,13 @@ export async function POST(request: NextRequest) {
       reservationDate: date,
       reservationTime: `${time}:00`,
       guestsCount: parseInt(guests),
-      tableId,
+      assignedTables: [tableId],
       durationMinutes: parseInt(duration || '120'),
-      status: 'confirmed',
-      source: 'web',
+      status: body.status || 'confirmed',
+      source: body.source || 'web',
       isVerified: true,
       specialRequests: specialRequests || null,
-      depositRequired: parseInt(guests) >= 6,
-      depositPaid: false,
+      requiresDeposit: parseInt(guests) >= 6,
     });
 
     // TODO: Send confirmation email
