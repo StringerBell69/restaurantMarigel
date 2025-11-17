@@ -1,4 +1,4 @@
-import { pgTable, uuid, text, boolean, integer, decimal, timestamp } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, text, boolean, integer, decimal, timestamp, index } from 'drizzle-orm/pg-core';
 
 export const customers = pgTable('customers', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -23,7 +23,10 @@ export const customers = pgTable('customers', {
   notes: text('notes'),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
-});
+}, (table) => ({
+  emailIdx: index('idx_customers_email').on(table.email),
+  phoneIdx: index('idx_customers_phone').on(table.phone),
+}));
 
 export const customerContacts = pgTable('customer_contacts', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -44,4 +47,6 @@ export const otpVerifications = pgTable('otp_verifications', {
   attempts: integer('attempts').default(0),
   isUsed: boolean('is_used').default(false),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
-});
+}, (table) => ({
+  contactIdx: index('idx_otp_contact').on(table.contactType, table.contactValue),
+}));
