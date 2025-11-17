@@ -93,23 +93,32 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
   };
 
   const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+  const daysFr: Record<string, string> = {
+    monday: 'Lundi',
+    tuesday: 'Mardi',
+    wednesday: 'Mercredi',
+    thursday: 'Jeudi',
+    friday: 'Vendredi',
+    saturday: 'Samedi',
+    sunday: 'Dimanche'
+  };
 
   return (
     <div className="space-y-6">
       <Tabs defaultValue="hours" className="w-full">
         <TabsList>
-          <TabsTrigger value="hours">Business Hours</TabsTrigger>
-          <TabsTrigger value="reservations">Reservations</TabsTrigger>
+          <TabsTrigger value="hours">Horaires d'Ouverture</TabsTrigger>
+          <TabsTrigger value="reservations">Réservations</TabsTrigger>
           <TabsTrigger value="notifications">Notifications</TabsTrigger>
         </TabsList>
 
         <TabsContent value="hours">
           <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4">Business Hours</h3>
+            <h3 className="text-lg font-semibold mb-4">Horaires d'Ouverture</h3>
             <div className="space-y-4">
               {days.map((day) => (
                 <div key={day} className="grid grid-cols-4 gap-4 items-center">
-                  <Label className="capitalize">{day}</Label>
+                  <Label>{daysFr[day]}</Label>
                   <Input
                     type="time"
                     value={businessHours[day].open}
@@ -142,7 +151,7 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
                         })
                       }
                     />
-                    <Label className="text-sm">Closed</Label>
+                    <Label className="text-sm">Fermé</Label>
                   </div>
                 </div>
               ))}
@@ -152,11 +161,11 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
 
         <TabsContent value="reservations">
           <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4">Reservation Settings</h3>
+            <h3 className="text-lg font-semibold mb-4">Paramètres de Réservation</h3>
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label>Max Advance Booking (days)</Label>
+                  <Label>Réservation anticipée max (jours)</Label>
                   <Input
                     type="number"
                     value={reservationSettings.maxAdvanceBookingDays}
@@ -169,7 +178,7 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
                   />
                 </div>
                 <div>
-                  <Label>Min Advance Booking (hours)</Label>
+                  <Label>Réservation anticipée min (heures)</Label>
                   <Input
                     type="number"
                     value={reservationSettings.minAdvanceBookingHours}
@@ -182,7 +191,7 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
                   />
                 </div>
                 <div>
-                  <Label>Max Guests Per Reservation</Label>
+                  <Label>Convives max par réservation</Label>
                   <Input
                     type="number"
                     value={reservationSettings.maxGuestsPerReservation}
@@ -195,7 +204,7 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
                   />
                 </div>
                 <div>
-                  <Label>Default Duration (minutes)</Label>
+                  <Label>Durée par défaut (minutes)</Label>
                   <Input
                     type="number"
                     value={reservationSettings.defaultReservationDuration}
@@ -211,7 +220,7 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
 
               <div className="space-y-3 pt-4 border-t">
                 <div className="flex items-center justify-between">
-                  <Label>Allow Waitlist</Label>
+                  <Label>Autoriser liste d'attente</Label>
                   <Switch
                     checked={reservationSettings.allowWaitlist}
                     onCheckedChange={(checked) =>
@@ -223,7 +232,7 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
                   />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Label>Require Deposit</Label>
+                  <Label>Exiger un acompte</Label>
                   <Switch
                     checked={reservationSettings.requireDeposit}
                     onCheckedChange={(checked) =>
@@ -236,7 +245,7 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
                 </div>
                 {reservationSettings.requireDeposit && (
                   <div>
-                    <Label>Deposit Amount ($)</Label>
+                    <Label>Montant de l'acompte (€)</Label>
                     <Input
                       type="number"
                       value={reservationSettings.depositAmount}
@@ -256,12 +265,12 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
 
         <TabsContent value="notifications">
           <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4">Notification Settings</h3>
+            <h3 className="text-lg font-semibold mb-4">Paramètres de Notification</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <Label>Email Notifications</Label>
-                  <p className="text-sm text-gray-500">Send notifications via email</p>
+                  <Label>Notifications par Email</Label>
+                  <p className="text-sm text-gray-500">Envoyer des notifications par email</p>
                 </div>
                 <Switch
                   checked={notificationSettings.emailNotifications}
@@ -275,8 +284,8 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <Label>SMS Notifications</Label>
-                  <p className="text-sm text-gray-500">Send notifications via SMS</p>
+                  <Label>Notifications par SMS</Label>
+                  <p className="text-sm text-gray-500">Envoyer des notifications par SMS</p>
                 </div>
                 <Switch
                   checked={notificationSettings.smsNotifications}
@@ -290,8 +299,8 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <Label>WhatsApp Notifications</Label>
-                  <p className="text-sm text-gray-500">Send notifications via WhatsApp</p>
+                  <Label>Notifications par WhatsApp</Label>
+                  <p className="text-sm text-gray-500">Envoyer des notifications par WhatsApp</p>
                 </div>
                 <Switch
                   checked={notificationSettings.whatsappNotifications}
@@ -306,7 +315,7 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
 
               <div className="border-t pt-4 space-y-3">
                 <div className="flex items-center justify-between">
-                  <Label>Send Confirmation Messages</Label>
+                  <Label>Envoyer messages de confirmation</Label>
                   <Switch
                     checked={notificationSettings.sendConfirmation}
                     onCheckedChange={(checked) =>
@@ -318,7 +327,7 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
                   />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Label>Send Reminder Messages</Label>
+                  <Label>Envoyer messages de rappel</Label>
                   <Switch
                     checked={notificationSettings.sendReminder}
                     onCheckedChange={(checked) =>
@@ -331,7 +340,7 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
                 </div>
                 {notificationSettings.sendReminder && (
                   <div>
-                    <Label>Send Reminder (hours before)</Label>
+                    <Label>Envoyer rappel (heures avant)</Label>
                     <Input
                       type="number"
                       value={notificationSettings.reminderHoursBefore}
@@ -357,10 +366,10 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
           className="bg-restaurant-burgundy hover:bg-restaurant-burgundy/90"
         >
           <Save className="h-4 w-4 mr-2" />
-          {loading ? 'Saving...' : 'Save Settings'}
+          {loading ? 'Enregistrement...' : 'Enregistrer les Paramètres'}
         </Button>
         {saved && (
-          <span className="text-green-600 text-sm">Settings saved successfully!</span>
+          <span className="text-green-600 text-sm">Paramètres enregistrés avec succès !</span>
         )}
       </div>
     </div>

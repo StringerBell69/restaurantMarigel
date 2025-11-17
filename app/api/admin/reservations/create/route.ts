@@ -25,12 +25,13 @@ export async function POST(request: NextRequest) {
       reservationTime,
       guestsCount,
       duration,
+      tableId,
       specialRequests,
       occasion,
     } = body;
 
     // Validate required fields
-    if (!firstName || !lastName || !email || !phone || !reservationDate || !reservationTime || !guestsCount) {
+    if (!firstName || !lastName || !email || !phone || !reservationDate || !reservationTime || !guestsCount || !tableId) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -75,6 +76,7 @@ export async function POST(request: NextRequest) {
         reservationTime,
         guestsCount,
         duration: duration || 120,
+        assignedTables: [tableId],
         status: 'confirmed',
         specialRequests: specialRequests || null,
         occasion: occasion || null,

@@ -67,12 +67,12 @@ export async function CustomersTable({ search }: CustomersTableProps) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Name</TableHead>
+            <TableHead>Nom</TableHead>
             <TableHead>Contact</TableHead>
-            <TableHead>Total Reservations</TableHead>
-            <TableHead>Upcoming</TableHead>
-            <TableHead>Joined</TableHead>
-            <TableHead>Preferences</TableHead>
+            <TableHead>Total Réservations</TableHead>
+            <TableHead>À venir</TableHead>
+            <TableHead>Inscrit le</TableHead>
+            <TableHead>Préférences</TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -80,7 +80,7 @@ export async function CustomersTable({ search }: CustomersTableProps) {
           {customersWithStats.length === 0 ? (
             <TableRow>
               <TableCell colSpan={7} className="text-center py-8 text-gray-500">
-                {search ? 'No customers found matching your search' : 'No customers yet'}
+                {search ? 'Aucun client trouvé correspondant à votre recherche' : 'Aucun client pour le moment'}
               </TableCell>
             </TableRow>
           ) : (
@@ -124,7 +124,7 @@ export async function CustomersTable({ search }: CustomersTableProps) {
                       {customer.dietaryRestrictions.length} restrictions
                     </Badge>
                   ) : (
-                    <span className="text-sm text-gray-400">None</span>
+                    <span className="text-sm text-gray-400">Aucune</span>
                   )}
                 </TableCell>
                 <TableCell className="text-right">

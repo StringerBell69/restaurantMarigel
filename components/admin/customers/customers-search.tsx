@@ -31,17 +31,17 @@ export function CustomersSearch() {
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
           <Input
-            placeholder="Search by name, email, or phone..."
+            placeholder="Rechercher par nom, email ou téléphone..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="pl-10"
           />
         </div>
-        <Button type="submit">Search</Button>
+        <Button type="submit">Rechercher</Button>
         {searchParams.get('search') && (
           <Button variant="ghost" onClick={clearSearch}>
             <X className="h-4 w-4 mr-2" />
-            Clear
+            Effacer
           </Button>
         )}
       </form>

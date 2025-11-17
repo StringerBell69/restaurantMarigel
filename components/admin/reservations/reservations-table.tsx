@@ -1,6 +1,6 @@
 import { db } from '@/lib/db';
-import { reservations, customers } from '@/lib/db/schema';
-import { eq, and, sql } from 'drizzle-orm';
+import { reservations, customers, restaurantTables } from '@/lib/db/schema';
+import { eq, and, sql, inArray } from 'drizzle-orm';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import {
@@ -62,6 +62,20 @@ export async function ReservationsTable({
 
   const results = await query.orderBy(reservations.reservationTime);
 
+  // Récupérer toutes les tables assignées pour afficher leurs numéros
+  const allTableIds = results
+    .map(r => r.reservation.assignedTables || [])
+    .flat()
+    .filter((id): id is string => id !== null && id !== undefined);
+
+  const uniqueTableIds = [...new Set(allTableIds)];
+
+  const tablesData = uniqueTableIds.length > 0
+    ? await db.select().from(restaurantTables).where(inArray(restaurantTables.id, uniqueTableIds))
+    : [];
+
+  const tablesMap = new Map(tablesData.map(t => [t.id, t.tableNumber]));
+
   const getStatusBadge = (status: string) => {
     const variants: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
       pending: 'secondary',
@@ -116,7 +130,11 @@ export async function ReservationsTable({
                   </div>
                 </TableCell>
                 <TableCell>{reservation.guestsCount}</TableCell>
-                <TableCell>{reservation.tableId || 'TBD'}</TableCell>
+                <TableCell>
+                  {reservation.assignedTables && reservation.assignedTables.length > 0
+                    ? reservation.assignedTables.map(tableId => tablesMap.get(tableId)).filter(Boolean).join(', ')
+                    : 'Non assignée'}
+                </TableCell>
                 <TableCell>
                   <Badge variant={getStatusBadge(reservation.status)}>
                     {reservation.status}

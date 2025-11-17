@@ -13,13 +13,13 @@ export default async function CustomersPage({
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Customers</h1>
-          <p className="text-gray-600 mt-1">Manage customer information and history</p>
+          <h1 className="text-3xl font-bold text-gray-900">Clients</h1>
+          <p className="text-gray-600 mt-1">Gérer les informations et l'historique des clients</p>
         </div>
         <Link href="/admin/customers/new">
           <Button className="bg-restaurant-burgundy hover:bg-restaurant-burgundy/90">
             <Plus className="h-4 w-4 mr-2" />
-            Add Customer
+            Ajouter un Client
           </Button>
         </Link>
       </div>
