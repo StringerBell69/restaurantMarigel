@@ -8,6 +8,12 @@ This document provides guidance on implementing the remaining features of the Re
 - ✅ Next.js 14 project setup with TypeScript
 - ✅ Tailwind CSS configuration with custom restaurant theme
 - ✅ Supabase client setup (browser and server)
+- ✅ **Drizzle ORM setup with PostgreSQL** (NEW!)
+  - ✅ Drizzle schema definitions for all tables
+  - ✅ Database connection configuration
+  - ✅ Common query utilities (`lib/db/queries.ts`)
+  - ✅ Example API route with Drizzle (`app/api/reservations/route.ts`)
+  - ✅ Type-safe database access
 - ✅ Middleware for auth
 - ✅ Complete database schema (`supabase/schema.sql`)
 - ✅ TypeScript types for database
@@ -315,6 +321,30 @@ Choose one provider:
 
 ## 🔧 Implementation Tips
 
+### Using Drizzle ORM (RECOMMENDED)
+
+The project now uses **Drizzle ORM** for type-safe database queries. See `lib/db/README.md` for full documentation.
+
+**Quick Start:**
+```typescript
+import { db, reservations, customers } from '@/lib/db';
+import { eq } from 'drizzle-orm';
+
+// Use pre-built queries from lib/db/queries.ts
+import { getReservationsForDate, createReservation } from '@/lib/db/queries';
+
+// Or write custom queries
+const todayReservations = await db
+  .select()
+  .from(reservations)
+  .where(eq(reservations.reservationDate, '2024-01-20'));
+```
+
+**Available npm scripts:**
+- `npm run db:push` - Push schema to database (development)
+- `npm run db:studio` - Open Drizzle Studio GUI
+- `npm run db:test` - Test database connection
+
 ### State Management
 Use Zustand for global state:
 ```typescript
@@ -328,26 +358,30 @@ export const useReservationStore = create((set) => ({
 }))
 ```
 
-### API Routes Pattern
+### API Routes Pattern (with Drizzle)
 ```typescript
 // app/api/reservations/route.ts
+import { createReservation } from '@/lib/db/queries';
+import { z } from 'zod';
+
 export async function POST(request: Request) {
-  const supabase = createClient()
-  const data = await request.json()
+  const data = await request.json();
 
   // Validate with Zod
-  const schema = z.object({ ... })
-  const validated = schema.parse(data)
+  const schema = z.object({
+    customerId: z.string().uuid(),
+    reservationDate: z.string(),
+    guestsCount: z.number(),
+  });
+  const validated = schema.parse(data);
 
-  // Insert to database
-  const { data: reservation, error } = await supabase
-    .from('reservations')
-    .insert(validated)
-    .select()
-    .single()
+  // Create using Drizzle
+  const [reservation] = await createReservation({
+    ...validated,
+    reservationNumber: generateReservationNumber(),
+  });
 
-  if (error) return NextResponse.json({ error }, { status: 400 })
-  return NextResponse.json(reservation)
+  return NextResponse.json(reservation);
 }
 ```
 
