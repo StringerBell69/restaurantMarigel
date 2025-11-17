@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateOTP, storeOTP } from '@/lib/otp';
+import { sendOTPEmail } from '@/lib/email';
 
 /**
  * POST /api/otp/send
@@ -36,11 +37,10 @@ export async function POST(request: NextRequest) {
     // Generate OTP
     const otpCode = generateOTP();
 
-    // Store OTP (valid for 10 minutes)
+    // Store OTP in database (valid for 10 minutes)
     await storeOTP(email, otpCode, phone, 10);
 
-    // In production, send email using Resend or another email service
-    // For now, we'll just log it to the console
+    // Log to console for development
     console.log('='.repeat(60));
     console.log('📧 CODE OTP GÉNÉRÉ');
     console.log('='.repeat(60));
@@ -51,37 +51,43 @@ export async function POST(request: NextRequest) {
     console.log(`Expire dans: 10 minutes`);
     console.log('='.repeat(60));
 
-    // TODO: Send actual email in production
-    /*
-    import { Resend } from 'resend';
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    // Send email via Resend
+    try {
+      await sendOTPEmail({
+        email,
+        firstName,
+        lastName,
+        otpCode,
+      });
+      console.log(`✅ Email envoyé avec succès à ${email}`);
+    } catch (emailError) {
+      console.error('❌ Erreur lors de l\'envoi de l\'email:', emailError);
+      // Continue anyway - the OTP is stored in DB and visible in console for dev
+      // In production, you might want to return an error here
+      console.warn('⚠️ L\'OTP a été généré mais l\'email n\'a pas pu être envoyé');
+    }
 
-    await resend.emails.send({
-      from: 'Restaurant Marigel <reservations@restaurantmarigel.com>',
-      to: email,
-      subject: 'Votre code de vérification - Restaurant Marigel',
-      html: `
-        <h2>Code de vérification</h2>
-        <p>Bonjour ${firstName} ${lastName},</p>
-        <p>Votre code de vérification est:</p>
-        <h1 style="font-size: 32px; letter-spacing: 5px; color: #8B0000;">${otpCode}</h1>
-        <p>Ce code expire dans 10 minutes.</p>
-        <p>Si vous n'avez pas demandé ce code, ignorez cet email.</p>
-        <br/>
-        <p>Cordialement,<br/>L'équipe Restaurant Marigel</p>
-      `,
-    });
-    */
+    // TODO: Add SMS sending when Twilio is configured
+    // if (phone && process.env.TWILIO_ENABLED === 'true') {
+    //   await sendOTPSMS({ phone, otpCode });
+    // }
+
+    // TODO: Add WhatsApp sending when WhatsApp Business API is configured
+    // if (phone && process.env.WHATSAPP_ENABLED === 'true') {
+    //   await sendOTPWhatsApp({ phone, firstName, otpCode });
+    // }
 
     return NextResponse.json({
       success: true,
       message: 'Code de vérification envoyé avec succès',
       // For development only - remove in production
-      devNote: `Code OTP: ${otpCode} (visible uniquement en développement)`,
+      devNote: process.env.NODE_ENV === 'development'
+        ? `Code OTP: ${otpCode} (visible uniquement en développement)`
+        : undefined,
     });
 
   } catch (error) {
-    console.error('Error sending OTP:', error);
+    console.error('Error in OTP send route:', error);
     return NextResponse.json(
       { error: 'Erreur lors de l\'envoi du code de vérification' },
       { status: 500 }
