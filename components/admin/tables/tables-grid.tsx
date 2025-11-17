@@ -37,8 +37,8 @@ export async function TablesGrid() {
                 <h3 className="text-2xl font-bold text-gray-900">
                   Table {table.tableNumber}
                 </h3>
-                <Badge className={`mt-2 ${getTableTypeColor(table.tableType)}`}>
-                  {table.tableType}
+                <Badge className={`mt-2 ${getTableTypeColor(table.tableType || 'Standard')}`}>
+                  {table.tableType || 'Standard'}
                 </Badge>
               </div>
               <Link href={`/admin/tables/${table.id}/edit`}>
@@ -56,10 +56,10 @@ export async function TablesGrid() {
                 </span>
               </div>
 
-              {table.location && (
+              {table.floorLevel && (
                 <div className="flex items-center gap-2 text-sm">
                   <MapPin className="h-4 w-4 text-gray-500" />
-                  <span className="text-gray-700">{table.location}</span>
+                  <span className="text-gray-700">Étage {table.floorLevel}</span>
                 </div>
               )}
 

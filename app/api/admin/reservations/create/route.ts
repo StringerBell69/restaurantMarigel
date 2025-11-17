@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
         reservationDate,
         reservationTime,
         guestsCount,
-        duration: duration || 120,
+        durationMinutes: duration || 120,
         assignedTables: [tableId],
         status: 'confirmed',
         specialRequests: specialRequests || null,

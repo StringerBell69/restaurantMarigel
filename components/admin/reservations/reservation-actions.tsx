@@ -25,7 +25,7 @@ import { MoreHorizontal, CheckCircle, XCircle, Eye, Edit } from 'lucide-react';
 interface ReservationActionsProps {
   reservation: {
     id: string;
-    status: string;
+    status: string | null;
     reservationNumber: string;
   };
 }
