@@ -60,7 +60,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                info@restaurantmarigel.com
+                info@sumbo.fr
               </li>
             </ul>
           </div>

@@ -1,20 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = createClient();
+
+  useEffect(() => {
+    const error = searchParams.get('error');
+    if (error) {
+      toast.error(decodeURIComponent(error));
+    }
+  }, [searchParams]);
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,6 +38,7 @@ export default function LoginPage() {
 
       toast.success("Welcome back!");
       router.push("/admin/dashboard");
+      router.refresh();
     } catch (error: any) {
       toast.error(error.message || "Failed to sign in");
     } finally {
@@ -39,10 +48,23 @@ export default function LoginPage() {
 
   const handleGoogleLogin = async () => {
     try {
+      // Clear old Supabase cookies to prevent header size issues
+      const cookies = document.cookie.split(';');
+      for (const cookie of cookies) {
+        const name = cookie.split('=')[0].trim();
+        if (name.startsWith('sb-')) {
+          document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+        }
+      }
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          },
         },
       });
 
@@ -71,7 +93,7 @@ export default function LoginPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="admin@restaurantmarigel.com"
+                placeholder="admin@sumbo.fr"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required

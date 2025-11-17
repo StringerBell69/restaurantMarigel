@@ -33,7 +33,7 @@ export default function ReservationPage() {
     tableId: "",
     tableName: "",
     firstName: "",
-    lastName: "",
+    lastName: "", // Will be set to empty string but not used in form
     email: "",
     phone: "",
     otpVerified: false,
@@ -85,6 +85,11 @@ export default function ReservationPage() {
 
   // Step 3: Send OTP
   const handleSendOTP = async () => {
+    if (formData.phone.length !== 10) {
+      toast.error('Le numéro de téléphone doit contenir exactement 10 chiffres');
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -95,7 +100,7 @@ export default function ReservationPage() {
           email: formData.email,
           phone: formData.phone,
           firstName: formData.firstName,
-          lastName: formData.lastName,
+          lastName: formData.firstName, // Use firstName as lastName
         }),
       });
 
@@ -174,7 +179,7 @@ export default function ReservationPage() {
           tableId: formData.tableId,
           tableName: formData.tableName,
           firstName: formData.firstName,
-          lastName: formData.lastName,
+          lastName: formData.firstName, // Use firstName as lastName
           email: formData.email,
           phone: formData.phone,
           specialRequests: formData.specialRequests,
@@ -474,29 +479,16 @@ export default function ReservationPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="firstName">Prénom</Label>
-                <Input
-                  id="firstName"
-                  required
-                  value={formData.firstName}
-                  onChange={(e) =>
-                    setFormData({ ...formData, firstName: e.target.value })
-                  }
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="lastName">Nom</Label>
-                <Input
-                  id="lastName"
-                  required
-                  value={formData.lastName}
-                  onChange={(e) =>
-                    setFormData({ ...formData, lastName: e.target.value })
-                  }
-                />
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="firstName">Prénom</Label>
+              <Input
+                id="firstName"
+                required
+                value={formData.firstName}
+                onChange={(e) =>
+                  setFormData({ ...formData, firstName: e.target.value })
+                }
+              />
             </div>
 
             <div className="space-y-2">
@@ -518,18 +510,23 @@ export default function ReservationPage() {
             <div className="space-y-2">
               <Label htmlFor="phone" className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-restaurant-burgundy" />
-                Téléphone
+                Téléphone (10 chiffres)
               </Label>
               <Input
                 id="phone"
                 type="tel"
                 required
-                placeholder="+33 6 12 34 56 78"
+                placeholder="0612345678"
+                maxLength={10}
                 value={formData.phone}
-                onChange={(e) =>
-                  setFormData({ ...formData, phone: e.target.value })
-                }
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, '');
+                  setFormData({ ...formData, phone: value });
+                }}
               />
+              {formData.phone && formData.phone.length !== 10 && formData.phone.length > 0 && (
+                <p className="text-xs text-red-500">Le numéro doit contenir exactement 10 chiffres</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -548,7 +545,7 @@ export default function ReservationPage() {
               <Button
                 className="w-full bg-restaurant-burgundy hover:bg-restaurant-burgundy/90"
                 onClick={handleSendOTP}
-                disabled={!formData.email || !formData.phone || !formData.firstName || !formData.lastName || loading}
+                disabled={!formData.email || !formData.phone || formData.phone.length !== 10 || !formData.firstName || loading}
               >
                 {loading ? (
                   <>
@@ -651,9 +648,9 @@ export default function ReservationPage() {
               </div>
               <div className="border-t pt-4">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Nom:</span>
+                  <span className="text-muted-foreground">Prénom:</span>
                   <span className="font-semibold">
-                    {formData.firstName} {formData.lastName}
+                    {formData.firstName}
                   </span>
                 </div>
                 <div className="flex justify-between mt-2">

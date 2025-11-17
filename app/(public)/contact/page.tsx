@@ -75,9 +75,9 @@ export default function ContactPage() {
               </div>
               <h3 className="mb-2 font-semibold">Email</h3>
               <p className="text-sm text-muted-foreground">
-                info@restaurantmarigel.com<br />
-                reservations@restaurantmarigel.com<br />
-                chef@restaurantmarigel.com
+                info@sumbo.fr<br />
+                reservations@sumbo.fr<br />
+                chef@sumbo.fr
               </p>
             </CardContent>
           </Card>
