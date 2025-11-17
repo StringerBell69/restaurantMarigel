@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     const otpCode = generateOTP();
 
     // Store OTP (valid for 10 minutes)
-    storeOTP(email, otpCode, phone, 10);
+    await storeOTP(email, otpCode, phone, 10);
 
     // In production, send email using Resend or another email service
     // For now, we'll just log it to the console

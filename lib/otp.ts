@@ -1,29 +1,10 @@
 /**
- * OTP (One-Time Password) management
- * Simple in-memory storage for development
- * In production, use Redis or database with expiration
+ * OTP (One-Time Password) management using database
  */
 
-interface OTPData {
-  code: string;
-  email: string;
-  phone?: string;
-  expiresAt: number;
-  attempts: number;
-}
-
-// In-memory store (use Redis in production)
-const otpStore = new Map<string, OTPData>();
-
-// Clean up expired OTPs every 5 minutes
-setInterval(() => {
-  const now = Date.now();
-  for (const [key, data] of otpStore.entries()) {
-    if (data.expiresAt < now) {
-      otpStore.delete(key);
-    }
-  }
-}, 5 * 60 * 1000);
+import { db } from './db';
+import { otpVerifications } from './db/schema/customers';
+import { eq, and, sql } from 'drizzle-orm';
 
 /**
  * Generate a 6-digit OTP code
@@ -33,45 +14,73 @@ export function generateOTP(): string {
 }
 
 /**
- * Store OTP for verification
+ * Store OTP for verification in database
  * @param email - User's email address
  * @param code - 6-digit OTP code
  * @param phone - Optional phone number
  * @param validityMinutes - How long the OTP is valid (default: 10 minutes)
  */
-export function storeOTP(
+export async function storeOTP(
   email: string,
   code: string,
   phone?: string,
   validityMinutes: number = 10
-): void {
-  const key = email.toLowerCase();
-  const expiresAt = Date.now() + validityMinutes * 60 * 1000;
+): Promise<void> {
+  const contactType = phone ? 'phone' : 'email';
+  const contactValue = (phone || email).toLowerCase();
+  const expiresAt = new Date(Date.now() + validityMinutes * 60 * 1000);
 
-  otpStore.set(key, {
-    code,
-    email,
-    phone,
+  // Delete any existing OTPs for this contact
+  await db
+    .delete(otpVerifications)
+    .where(
+      and(
+        eq(otpVerifications.contactType, contactType),
+        eq(otpVerifications.contactValue, contactValue)
+      )
+    );
+
+  // Insert new OTP
+  await db.insert(otpVerifications).values({
+    contactType,
+    contactValue,
+    otpCode: code,
     expiresAt,
     attempts: 0,
+    isUsed: false,
   });
+
+  console.log(`📧 Code de développement: ${code}`);
 }
 
 /**
- * Verify OTP code
+ * Verify OTP code from database
  * @param email - User's email address
  * @param code - 6-digit OTP code to verify
  * @returns Object with success status and message
  */
-export function verifyOTP(
+export async function verifyOTP(
   email: string,
   code: string
-): { success: boolean; message: string } {
-  const key = email.toLowerCase();
-  const data = otpStore.get(key);
+): Promise<{ success: boolean; message: string }> {
+  const contactValue = email.toLowerCase();
+
+  // Get OTP from database
+  const [otpData] = await db
+    .select()
+    .from(otpVerifications)
+    .where(
+      and(
+        eq(otpVerifications.contactType, 'email'),
+        eq(otpVerifications.contactValue, contactValue),
+        eq(otpVerifications.isUsed, false)
+      )
+    )
+    .orderBy(sql`${otpVerifications.createdAt} DESC`)
+    .limit(1);
 
   // Check if OTP exists
-  if (!data) {
+  if (!otpData) {
     return {
       success: false,
       message: 'Code de vérification invalide ou expiré',
@@ -79,8 +88,10 @@ export function verifyOTP(
   }
 
   // Check if expired
-  if (data.expiresAt < Date.now()) {
-    otpStore.delete(key);
+  if (otpData.expiresAt < new Date()) {
+    await db
+      .delete(otpVerifications)
+      .where(eq(otpVerifications.id, otpData.id));
     return {
       success: false,
       message: 'Code de vérification expiré',
@@ -88,8 +99,10 @@ export function verifyOTP(
   }
 
   // Check max attempts (3 attempts)
-  if (data.attempts >= 3) {
-    otpStore.delete(key);
+  if (otpData.attempts >= 3) {
+    await db
+      .delete(otpVerifications)
+      .where(eq(otpVerifications.id, otpData.id));
     return {
       success: false,
       message: 'Trop de tentatives. Veuillez demander un nouveau code',
@@ -97,17 +110,23 @@ export function verifyOTP(
   }
 
   // Verify code
-  if (data.code !== code) {
-    data.attempts++;
-    otpStore.set(key, data);
+  if (otpData.otpCode !== code) {
+    await db
+      .update(otpVerifications)
+      .set({ attempts: otpData.attempts + 1 })
+      .where(eq(otpVerifications.id, otpData.id));
     return {
       success: false,
-      message: `Code incorrect. ${3 - data.attempts} tentatives restantes`,
+      message: `Code incorrect. ${3 - (otpData.attempts + 1)} tentatives restantes`,
     };
   }
 
-  // Success - remove OTP from store
-  otpStore.delete(key);
+  // Success - mark OTP as used
+  await db
+    .update(otpVerifications)
+    .set({ isUsed: true })
+    .where(eq(otpVerifications.id, otpData.id));
+
   return {
     success: true,
     message: 'Code vérifié avec succès',
@@ -117,15 +136,38 @@ export function verifyOTP(
 /**
  * Check if an OTP exists and is valid for an email
  */
-export function hasValidOTP(email: string): boolean {
-  const key = email.toLowerCase();
-  const data = otpStore.get(key);
+export async function hasValidOTP(email: string): Promise<boolean> {
+  const contactValue = email.toLowerCase();
 
-  if (!data) return false;
-  if (data.expiresAt < Date.now()) {
-    otpStore.delete(key);
+  const [otpData] = await db
+    .select()
+    .from(otpVerifications)
+    .where(
+      and(
+        eq(otpVerifications.contactType, 'email'),
+        eq(otpVerifications.contactValue, contactValue),
+        eq(otpVerifications.isUsed, false)
+      )
+    )
+    .orderBy(sql`${otpVerifications.createdAt} DESC`)
+    .limit(1);
+
+  if (!otpData) return false;
+  if (otpData.expiresAt < new Date()) {
+    await db
+      .delete(otpVerifications)
+      .where(eq(otpVerifications.id, otpData.id));
     return false;
   }
 
   return true;
+}
+
+/**
+ * Clean up expired OTPs (can be called periodically)
+ */
+export async function cleanupExpiredOTPs(): Promise<void> {
+  await db
+    .delete(otpVerifications)
+    .where(sql`${otpVerifications.expiresAt} < NOW()`);
 }
