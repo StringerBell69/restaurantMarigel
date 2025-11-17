@@ -12,11 +12,13 @@ export async function UpcomingReservations() {
   // Fetch customer info for each reservation
   const reservationsWithCustomers = await Promise.all(
     reservations.map(async (reservation) => {
-      const [customer] = await db
-        .select()
-        .from(customers)
-        .where(eq(customers.id, reservation.customerId))
-        .limit(1);
+      const [customer] = reservation.customerId
+        ? await db
+            .select()
+            .from(customers)
+            .where(eq(customers.id, reservation.customerId))
+            .limit(1)
+        : [null];
       return { ...reservation, customer };
     })
   );

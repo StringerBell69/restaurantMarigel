@@ -116,7 +116,7 @@ export async function CustomersTable({ search }: CustomersTableProps) {
                   </Badge>
                 </TableCell>
                 <TableCell className="text-sm text-gray-600">
-                  {new Date(customer.createdAt).toLocaleDateString()}
+                  {customer.createdAt ? new Date(customer.createdAt).toLocaleDateString() : 'N/A'}
                 </TableCell>
                 <TableCell>
                   {customer.dietaryRestrictions && customer.dietaryRestrictions.length > 0 ? (

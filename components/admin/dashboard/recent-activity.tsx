@@ -19,11 +19,13 @@ export async function RecentActivity() {
 
   const activities = await Promise.all(
     recentReservations.map(async (reservation) => {
-      const [customer] = await db
-        .select()
-        .from(customers)
-        .where(eq(customers.id, reservation.customerId))
-        .limit(1);
+      const [customer] = reservation.customerId
+        ? await db
+            .select()
+            .from(customers)
+            .where(eq(customers.id, reservation.customerId))
+            .limit(1)
+        : [null];
 
       let icon = Calendar;
       let color = 'text-blue-600 bg-blue-100';
@@ -67,7 +69,7 @@ export async function RecentActivity() {
                 <span className="font-medium">{activity.customerName}</span> {activity.action}
               </p>
               <p className="text-xs text-gray-500 mt-0.5">
-                {new Date(activity.timestamp).toLocaleString()}
+                {activity.timestamp ? new Date(activity.timestamp).toLocaleString() : 'N/A'}
               </p>
             </div>
           </div>

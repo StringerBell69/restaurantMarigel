@@ -136,8 +136,8 @@ export async function ReservationsTable({
                     : 'Non assignée'}
                 </TableCell>
                 <TableCell>
-                  <Badge variant={getStatusBadge(reservation.status)}>
-                    {reservation.status}
+                  <Badge variant={getStatusBadge(reservation.status || 'pending')}>
+                    {reservation.status || 'pending'}
                   </Badge>
                 </TableCell>
                 <TableCell>

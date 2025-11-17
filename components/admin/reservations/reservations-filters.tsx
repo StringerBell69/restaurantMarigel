@@ -19,7 +19,7 @@ export function ReservationsFilters() {
   const [search, setSearch] = useState(searchParams.get('search') || '');
 
   const handleFilterChange = (key: string, value: string) => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams.toString());
     if (value) {
       params.set(key, value);
     } else {

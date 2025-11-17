@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
       tableType,
       capacityMin,
       capacityMax,
-      location,
+      floorLevel,
       isActive,
       features,
     } = body;
@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
         tableType,
         capacityMin,
         capacityMax,
-        location: location || null,
+        floorLevel: floorLevel || 1,
         isActive: isActive ?? true,
         features: features || [],
       })
