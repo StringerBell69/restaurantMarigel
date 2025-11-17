@@ -25,7 +25,7 @@ export async function TablesGrid() {
         <div className="col-span-full">
           <Card className="p-12">
             <p className="text-center text-gray-500">
-              No tables found. Add your first table to get started.
+              Aucune table trouvée. Ajoutez votre première table pour commencer.
             </p>
           </Card>
         </div>
@@ -52,7 +52,7 @@ export async function TablesGrid() {
               <div className="flex items-center gap-2 text-sm">
                 <Users className="h-4 w-4 text-gray-500" />
                 <span className="text-gray-700">
-                  Capacity: {table.capacityMin}-{table.capacityMax} guests
+                  Capacité: {table.capacityMin}-{table.capacityMax} convives
                 </span>
               </div>
 
@@ -79,7 +79,7 @@ export async function TablesGrid() {
 
               <div className="pt-4 border-t border-gray-100">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-600">Status</span>
+                  <span className="text-gray-600">Statut</span>
                   <Badge variant={table.isActive ? 'default' : 'secondary'}>
                     {table.isActive ? 'Active' : 'Inactive'}
                   </Badge>

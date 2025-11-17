@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -13,13 +13,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
+
+interface AvailableTable {
+  id: string;
+  name: string;
+  tableNumber: string;
+  capacity: number;
+  capacityMin: number;
+  location?: string;
+  features?: string[];
+  available: boolean;
+}
 
 export default function NewReservationPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [checkingAvailability, setCheckingAvailability] = useState(false);
+  const [availableTables, setAvailableTables] = useState<AvailableTable[]>([]);
 
   const [formData, setFormData] = useState({
     // Customer info
@@ -32,13 +45,51 @@ export default function NewReservationPage() {
     reservationTime: '',
     guestsCount: 2,
     duration: 120,
+    tableId: '',
     // Optional
     specialRequests: '',
     occasion: '',
   });
 
+  // Check availability when date, time, guests, or duration changes
+  useEffect(() => {
+    const checkAvailability = async () => {
+      if (!formData.reservationDate || !formData.reservationTime || !formData.guestsCount) {
+        setAvailableTables([]);
+        return;
+      }
+
+      setCheckingAvailability(true);
+      try {
+        const response = await fetch(
+          `/api/tables/availability?date=${formData.reservationDate}&time=${formData.reservationTime}&guests=${formData.guestsCount}&duration=${formData.duration}`
+        );
+        const data = await response.json();
+
+        if (response.ok) {
+          setAvailableTables(data.availableTables || []);
+        } else {
+          setAvailableTables([]);
+        }
+      } catch (error) {
+        console.error('Error checking availability:', error);
+        setAvailableTables([]);
+      } finally {
+        setCheckingAvailability(false);
+      }
+    };
+
+    checkAvailability();
+  }, [formData.reservationDate, formData.reservationTime, formData.guestsCount, formData.duration]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!formData.tableId) {
+      toast.error('Veuillez sélectionner une table');
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -50,14 +101,14 @@ export default function NewReservationPage() {
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.message || 'Failed to create reservation');
+        throw new Error(error.message || 'Échec de la création de la réservation');
       }
 
       const result = await response.json();
-      toast.success('Reservation created successfully!');
+      toast.success('Réservation créée avec succès !');
       router.push(`/admin/reservations?date=${formData.reservationDate}`);
     } catch (error: any) {
-      toast.error(error.message || 'Failed to create reservation');
+      toast.error(error.message || 'Échec de la création de la réservation');
     } finally {
       setLoading(false);
     }
@@ -76,12 +127,12 @@ export default function NewReservationPage() {
         <Link href="/admin/reservations">
           <Button variant="ghost" size="sm">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back
+            Retour
           </Button>
         </Link>
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">New Reservation</h1>
-          <p className="text-gray-600 mt-1">Create a new reservation manually</p>
+          <h1 className="text-3xl font-bold text-gray-900">Nouvelle Réservation</h1>
+          <p className="text-gray-600 mt-1">Créer une nouvelle réservation manuellement</p>
         </div>
       </div>
 
@@ -89,10 +140,10 @@ export default function NewReservationPage() {
         <Card className="p-6 space-y-6">
           {/* Customer Information */}
           <div>
-            <h2 className="text-lg font-semibold mb-4">Customer Information</h2>
+            <h2 className="text-lg font-semibold mb-4">Informations Client</h2>
             <div className="grid gap-4 md:grid-cols-2">
               <div>
-                <Label htmlFor="firstName">First Name *</Label>
+                <Label htmlFor="firstName">Prénom *</Label>
                 <Input
                   id="firstName"
                   value={formData.firstName}
@@ -101,7 +152,7 @@ export default function NewReservationPage() {
                 />
               </div>
               <div>
-                <Label htmlFor="lastName">Last Name *</Label>
+                <Label htmlFor="lastName">Nom *</Label>
                 <Input
                   id="lastName"
                   value={formData.lastName}
@@ -120,7 +171,7 @@ export default function NewReservationPage() {
                 />
               </div>
               <div>
-                <Label htmlFor="phone">Phone *</Label>
+                <Label htmlFor="phone">Téléphone *</Label>
                 <Input
                   id="phone"
                   type="tel"
@@ -134,7 +185,7 @@ export default function NewReservationPage() {
 
           {/* Reservation Details */}
           <div className="border-t pt-6">
-            <h2 className="text-lg font-semibold mb-4">Reservation Details</h2>
+            <h2 className="text-lg font-semibold mb-4">Détails de la Réservation</h2>
             <div className="grid gap-4 md:grid-cols-2">
               <div>
                 <Label htmlFor="reservationDate">Date *</Label>
@@ -148,7 +199,7 @@ export default function NewReservationPage() {
                 />
               </div>
               <div>
-                <Label htmlFor="reservationTime">Time *</Label>
+                <Label htmlFor="reservationTime">Heure *</Label>
                 <Input
                   id="reservationTime"
                   type="time"
@@ -158,7 +209,7 @@ export default function NewReservationPage() {
                 />
               </div>
               <div>
-                <Label htmlFor="guestsCount">Number of Guests *</Label>
+                <Label htmlFor="guestsCount">Nombre de Convives *</Label>
                 <Select
                   value={formData.guestsCount.toString()}
                   onValueChange={(value) => handleChange('guestsCount', parseInt(value))}
@@ -169,14 +220,14 @@ export default function NewReservationPage() {
                   <SelectContent>
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num) => (
                       <SelectItem key={num} value={num.toString()}>
-                        {num} {num === 1 ? 'Guest' : 'Guests'}
+                        {num} {num === 1 ? 'Convive' : 'Convives'}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
               <div>
-                <Label htmlFor="duration">Duration (minutes)</Label>
+                <Label htmlFor="duration">Durée (minutes)</Label>
                 <Input
                   id="duration"
                   type="number"
@@ -187,12 +238,42 @@ export default function NewReservationPage() {
                   onChange={(e) => handleChange('duration', parseInt(e.target.value))}
                 />
               </div>
+              <div>
+                <Label htmlFor="tableId">Assignation de Table *</Label>
+                {checkingAvailability ? (
+                  <div className="flex items-center gap-2 p-2 border rounded-md">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span className="text-sm text-gray-500">Vérification de la disponibilité...</span>
+                  </div>
+                ) : availableTables.length === 0 && formData.reservationDate && formData.reservationTime ? (
+                  <div className="p-2 border rounded-md text-sm text-gray-500">
+                    Aucune table disponible pour la date/heure sélectionnée
+                  </div>
+                ) : (
+                  <Select
+                    value={formData.tableId}
+                    onValueChange={(value) => handleChange('tableId', value)}
+                    disabled={availableTables.length === 0}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Sélectionner une table" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {availableTables.map((table) => (
+                        <SelectItem key={table.id} value={table.id}>
+                          Table {table.tableNumber} (Capacité: {table.capacityMin}-{table.capacity})
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
+              </div>
             </div>
           </div>
 
           {/* Optional Information */}
           <div className="border-t pt-6">
-            <h2 className="text-lg font-semibold mb-4">Additional Information</h2>
+            <h2 className="text-lg font-semibold mb-4">Informations Supplémentaires</h2>
             <div className="grid gap-4">
               <div>
                 <Label htmlFor="occasion">Occasion</Label>
@@ -201,25 +282,25 @@ export default function NewReservationPage() {
                   onValueChange={(value) => handleChange('occasion', value)}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select an occasion (optional)" />
+                    <SelectValue placeholder="Sélectionner une occasion (optionnel)" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="none">None</SelectItem>
-                    <SelectItem value="birthday">Birthday</SelectItem>
-                    <SelectItem value="anniversary">Anniversary</SelectItem>
-                    <SelectItem value="business">Business Dinner</SelectItem>
-                    <SelectItem value="date">Date Night</SelectItem>
-                    <SelectItem value="celebration">Celebration</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                    <SelectItem value="none">Aucune</SelectItem>
+                    <SelectItem value="birthday">Anniversaire</SelectItem>
+                    <SelectItem value="anniversary">Anniversaire de Mariage</SelectItem>
+                    <SelectItem value="business">Dîner d'Affaires</SelectItem>
+                    <SelectItem value="date">Soirée Romantique</SelectItem>
+                    <SelectItem value="celebration">Célébration</SelectItem>
+                    <SelectItem value="other">Autre</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div>
-                <Label htmlFor="specialRequests">Special Requests</Label>
+                <Label htmlFor="specialRequests">Demandes Spéciales</Label>
                 <textarea
                   id="specialRequests"
                   className="flex min-h-[100px] w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-white placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                  placeholder="Any dietary restrictions, seating preferences, etc."
+                  placeholder="Restrictions alimentaires, préférences de sièges, etc."
                   value={formData.specialRequests}
                   onChange={(e) => handleChange('specialRequests', e.target.value)}
                 />
@@ -233,11 +314,11 @@ export default function NewReservationPage() {
               disabled={loading}
               className="bg-restaurant-burgundy hover:bg-restaurant-burgundy/90"
             >
-              {loading ? 'Creating...' : 'Create Reservation'}
+              {loading ? 'Création...' : 'Créer la Réservation'}
             </Button>
             <Link href="/admin/reservations">
               <Button type="button" variant="outline">
-                Cancel
+                Annuler
               </Button>
             </Link>
           </div>

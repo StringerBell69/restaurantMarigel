@@ -8,13 +8,13 @@ export default async function TablesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Tables Management</h1>
-          <p className="text-gray-600 mt-1">Manage restaurant tables and seating arrangements</p>
+          <h1 className="text-3xl font-bold text-gray-900">Gestion des Tables</h1>
+          <p className="text-gray-600 mt-1">Gérer les tables du restaurant et les arrangements de sièges</p>
         </div>
         <Link href="/admin/tables/new">
           <Button className="bg-restaurant-burgundy hover:bg-restaurant-burgundy/90">
             <Plus className="h-4 w-4 mr-2" />
-            Add Table
+            Ajouter une Table
           </Button>
         </Link>
       </div>
