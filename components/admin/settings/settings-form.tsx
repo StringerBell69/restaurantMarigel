@@ -107,14 +107,14 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
     <div className="space-y-6">
       <Tabs defaultValue="hours" className="w-full">
         <TabsList>
-          <TabsTrigger value="hours">Horaires d'Ouverture</TabsTrigger>
+          <TabsTrigger value="hours">Horaires d&apos;Ouverture</TabsTrigger>
           <TabsTrigger value="reservations">Réservations</TabsTrigger>
           <TabsTrigger value="notifications">Notifications</TabsTrigger>
         </TabsList>
 
         <TabsContent value="hours">
           <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4">Horaires d'Ouverture</h3>
+            <h3 className="text-lg font-semibold mb-4">Horaires d&apos;Ouverture</h3>
             <div className="space-y-4">
               {days.map((day) => (
                 <div key={day} className="grid grid-cols-4 gap-4 items-center">
@@ -220,7 +220,7 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
 
               <div className="space-y-3 pt-4 border-t">
                 <div className="flex items-center justify-between">
-                  <Label>Autoriser liste d'attente</Label>
+                  <Label>Autoriser liste d&apos;attente</Label>
                   <Switch
                     checked={reservationSettings.allowWaitlist}
                     onCheckedChange={(checked) =>
@@ -245,7 +245,7 @@ export function SettingsForm({ initialSettings }: SettingsFormProps) {
                 </div>
                 {reservationSettings.requireDeposit && (
                   <div>
-                    <Label>Montant de l'acompte (€)</Label>
+                    <Label>Montant de l&apos;acompte (€)</Label>
                     <Input
                       type="number"
                       value={reservationSettings.depositAmount}

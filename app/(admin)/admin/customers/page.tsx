@@ -14,7 +14,7 @@ export default async function CustomersPage({
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Clients</h1>
-          <p className="text-gray-600 mt-1">Gérer les informations et l'historique des clients</p>
+          <p className="text-gray-600 mt-1">Gérer les informations et l&apos;historique des clients</p>
         </div>
         <Link href="/admin/customers/new">
           <Button className="bg-restaurant-burgundy hover:bg-restaurant-burgundy/90">

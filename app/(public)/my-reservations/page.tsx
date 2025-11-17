@@ -159,7 +159,7 @@ export default function MyReservationsPage() {
                   <Calendar className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
                   <p className="text-lg font-semibold">Aucune réservation trouvée</p>
                   <p className="text-muted-foreground">
-                    Vous n'avez pas encore de réservation avec ce prénom et cette adresse email
+                    Vous n&apos;avez pas encore de réservation avec ce prénom et cette adresse email
                   </p>
                 </CardContent>
               </Card>
@@ -249,10 +249,10 @@ export default function MyReservationsPage() {
               <h3 className="mb-4 font-semibold">Politique de Réservation</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>
-                  • <strong>Annulation:</strong> Annulation gratuite jusqu'à 24 heures avant votre réservation
+                  • <strong>Annulation:</strong> Annulation gratuite jusqu&apos;à 24 heures avant votre réservation
                 </li>
                 <li>
-                  • <strong>Modification:</strong> Vous pouvez modifier votre réservation jusqu'à 12 heures avant
+                  • <strong>Modification:</strong> Vous pouvez modifier votre réservation jusqu&apos;à 12 heures avant
                 </li>
                 <li>
                   • <strong>Retard:</strong> Veuillez nous informer si vous avez plus de 15 minutes de retard

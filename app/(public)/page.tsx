@@ -10,7 +10,7 @@ export default function HomePage() {
       <section className="relative flex min-h-[600px] items-center justify-center bg-gradient-to-br from-restaurant-burgundy to-restaurant-burgundy/80 px-4 py-20 text-white">
         <div className="container max-w-4xl text-center">
           <h1 className="mb-6 font-serif text-5xl font-bold leading-tight md:text-7xl">
-            Découvrez l'Excellence Gastronomique
+            Découvrez l&apos;Excellence Gastronomique
           </h1>
           <p className="mb-8 text-lg text-white/90 md:text-xl">
             Savourez une cuisine exceptionnelle préparée avec passion et servie avec élégance.
@@ -87,7 +87,7 @@ export default function HomePage() {
               Pourquoi Choisir Marigel?
             </h2>
             <p className="mb-12 text-lg text-muted-foreground">
-              Nous combinons les techniques culinaires traditionnelles avec l'innovation moderne
+              Nous combinons les techniques culinaires traditionnelles avec l&apos;innovation moderne
               pour créer des expériences gastronomiques mémorables
             </p>
 
@@ -104,7 +104,7 @@ export default function HomePage() {
                 <Users className="mb-3 h-8 w-8 text-restaurant-burgundy" />
                 <h3 className="mb-2 font-semibold">Événements Privés</h3>
                 <p className="text-sm text-muted-foreground">
-                  Parfait pour les célébrations, les dîners d'affaires et les occasions spéciales
+                  Parfait pour les célébrations, les dîners d&apos;affaires et les occasions spéciales
                 </p>
               </div>
             </div>
@@ -119,7 +119,7 @@ export default function HomePage() {
             Prêt à Dîner avec Nous?
           </h2>
           <p className="mb-8 text-lg text-white/90">
-            Réservez votre table maintenant et découvrez l'excellence culinaire
+            Réservez votre table maintenant et découvrez l&apos;excellence culinaire
           </p>
           <Link href="/reservation">
             <Button

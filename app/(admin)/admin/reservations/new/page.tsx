@@ -288,7 +288,7 @@ export default function NewReservationPage() {
                     <SelectItem value="none">Aucune</SelectItem>
                     <SelectItem value="birthday">Anniversaire</SelectItem>
                     <SelectItem value="anniversary">Anniversaire de Mariage</SelectItem>
-                    <SelectItem value="business">Dîner d'Affaires</SelectItem>
+                    <SelectItem value="business">Dîner d&apos;Affaires</SelectItem>
                     <SelectItem value="date">Soirée Romantique</SelectItem>
                     <SelectItem value="celebration">Célébration</SelectItem>
                     <SelectItem value="other">Autre</SelectItem>

@@ -14,7 +14,7 @@ export function Footer() {
               Marigel
             </h3>
             <p className="text-sm text-muted-foreground">
-              Découvrez une gastronomie d'exception dans une atmosphère élégante.
+              Découvrez une gastronomie d&apos;exception dans une atmosphère élégante.
               Nous créons des moments culinaires inoubliables.
             </p>
           </div>
