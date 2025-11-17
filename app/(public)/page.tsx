@@ -29,8 +29,7 @@ export default function HomePage() {
             <Link href="/menu">
               <Button
                 size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white/10"
+                className="border-2 border-white bg-transparent text-white hover:bg-white hover:text-restaurant-burgundy focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-restaurant-burgundy transition-all duration-200"
               >
                 Voir le Menu
               </Button>
