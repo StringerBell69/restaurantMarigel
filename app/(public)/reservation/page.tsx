@@ -100,7 +100,7 @@ export default function ReservationPage() {
           email: formData.email,
           phone: formData.phone,
           firstName: formData.firstName,
-          lastName: formData.lastName,
+          lastName: formData.firstName,
         }),
       });
 
@@ -179,7 +179,7 @@ export default function ReservationPage() {
           tableId: formData.tableId,
           tableName: formData.tableName,
           firstName: formData.firstName,
-          lastName: formData.lastName,
+          lastName: formData.firstName,
           email: formData.email,
           phone: formData.phone,
           specialRequests: formData.specialRequests,
@@ -492,18 +492,6 @@ export default function ReservationPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="lastName">Nom</Label>
-              <Input
-                id="lastName"
-                required
-                value={formData.lastName}
-                onChange={(e) =>
-                  setFormData({ ...formData, lastName: e.target.value })
-                }
-              />
-            </div>
-
-            <div className="space-y-2">
               <Label htmlFor="email" className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-restaurant-burgundy" />
                 Email
@@ -557,7 +545,7 @@ export default function ReservationPage() {
               <Button
                 className="w-full bg-restaurant-burgundy hover:bg-restaurant-burgundy/90"
                 onClick={handleSendOTP}
-                disabled={!formData.email || !formData.phone || formData.phone.length !== 10 || !formData.firstName || !formData.lastName || loading}
+                disabled={!formData.email || !formData.phone || formData.phone.length !== 10 || !formData.firstName || loading}
               >
                 {loading ? (
                   <>
