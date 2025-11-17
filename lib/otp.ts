@@ -27,8 +27,10 @@ export async function storeOTP(
   validityMinutes: number = 10
 ): Promise<void> {
   const contactType = phone ? 'phone' : 'email';
-  const contactValue = (phone || email).toLowerCase();
+  const contactValue = (phone || email).toLowerCase().trim();
   const expiresAt = new Date(Date.now() + validityMinutes * 60 * 1000);
+
+  console.log('💾 Storing OTP:', { contactType, contactValue, code, expiresAt });
 
   // Delete any existing OTPs for this contact
   await db
@@ -41,15 +43,16 @@ export async function storeOTP(
     );
 
   // Insert new OTP
-  await db.insert(otpVerifications).values({
+  const [insertedOtp] = await db.insert(otpVerifications).values({
     contactType,
     contactValue,
     otpCode: code,
     expiresAt,
     attempts: 0,
     isUsed: false,
-  });
+  }).returning();
 
+  console.log('✅ OTP stored successfully:', insertedOtp);
   console.log(`📧 Code de développement: ${code}`);
 }
 
@@ -63,7 +66,9 @@ export async function verifyOTP(
   email: string,
   code: string
 ): Promise<{ success: boolean; message: string }> {
-  const contactValue = email.toLowerCase();
+  const contactValue = email.toLowerCase().trim();
+
+  console.log('🔍 Verifying OTP for:', { contactValue, code });
 
   // Get OTP from database
   const [otpData] = await db
@@ -78,6 +83,16 @@ export async function verifyOTP(
     )
     .orderBy(sql`${otpVerifications.createdAt} DESC`)
     .limit(1);
+
+  console.log('📊 Query result:', otpData);
+
+  // Debug: Check all OTPs for this email (including used ones)
+  const allOtps = await db
+    .select()
+    .from(otpVerifications)
+    .where(eq(otpVerifications.contactValue, contactValue));
+
+  console.log(`📋 All OTPs for ${contactValue}:`, allOtps);
 
   // Check if OTP exists
   if (!otpData) {
@@ -137,7 +152,7 @@ export async function verifyOTP(
  * Check if an OTP exists and is valid for an email
  */
 export async function hasValidOTP(email: string): Promise<boolean> {
-  const contactValue = email.toLowerCase();
+  const contactValue = email.toLowerCase().trim();
 
   const [otpData] = await db
     .select()
