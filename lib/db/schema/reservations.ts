@@ -1,4 +1,4 @@
-import { pgTable, uuid, text, date, time, integer, boolean, decimal, timestamp } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, text, date, time, integer, boolean, decimal, timestamp, index } from 'drizzle-orm/pg-core';
 import { customers } from './customers';
 
 export const reservations = pgTable('reservations', {
@@ -53,7 +53,11 @@ export const reservations = pgTable('reservations', {
   cancelledAt: timestamp('cancelled_at', { withTimezone: true }),
   createdBy: uuid('created_by'), // references auth.users
   modifiedBy: uuid('modified_by'), // references auth.users
-});
+}, (table) => ({
+  dateIdx: index('idx_reservations_date').on(table.reservationDate),
+  statusIdx: index('idx_reservations_status').on(table.status),
+  customerIdx: index('idx_reservations_customer').on(table.customerId),
+}));
 
 export const reservationMenuItems = pgTable('reservation_menu_items', {
   id: uuid('id').defaultRandom().primaryKey(),

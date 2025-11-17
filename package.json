@@ -9,10 +9,13 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
+    "db:migrate": "tsx scripts/migrate.ts",
+    "db:seed": "tsx scripts/seed.ts",
+    "db:setup": "npm run db:migrate && npm run db:seed",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "db:test": "tsx scripts/test-db.ts"
+    "db:test": "tsx scripts/test-db.ts",
+    "migrate": "tsx scripts/migrate.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",

@@ -1,4 +1,4 @@
-import { pgTable, uuid, text, boolean, timestamp } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, text, boolean, timestamp, index } from 'drizzle-orm/pg-core';
 import { reservations } from './reservations';
 import { customers } from './customers';
 
@@ -17,7 +17,9 @@ export const communicationLog = pgTable('communication_log', {
   deliveredAt: timestamp('delivered_at', { withTimezone: true }),
   readAt: timestamp('read_at', { withTimezone: true }),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
-});
+}, (table) => ({
+  reservationIdx: index('idx_communication_log_reservation').on(table.reservationId),
+}));
 
 export const messageTemplates = pgTable('message_templates', {
   id: uuid('id').defaultRandom().primaryKey(),

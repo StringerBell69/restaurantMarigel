@@ -1,4 +1,4 @@
-import { pgTable, uuid, text, decimal, integer, boolean, timestamp } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, text, decimal, integer, boolean, timestamp, index } from 'drizzle-orm/pg-core';
 
 export const menuItems = pgTable('menu_items', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -16,7 +16,10 @@ export const menuItems = pgTable('menu_items', {
   popularityScore: integer('popularity_score').default(0),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
-});
+}, (table) => ({
+  categoryIdx: index('idx_menu_items_category').on(table.category),
+  activeIdx: index('idx_menu_items_active').on(table.isActive),
+}));
 
 export const galleryImages = pgTable('gallery_images', {
   id: uuid('id').defaultRandom().primaryKey(),
