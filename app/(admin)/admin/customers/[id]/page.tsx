@@ -81,22 +81,13 @@ export default async function CustomerDetailsPage({ params }: CustomerDetailsPag
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-purple-100 rounded-lg">
-                <User className="h-4 w-4 text-purple-600" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Language</p>
-                <p className="font-medium capitalize">{customer.preferredLanguage || 'English'}</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
               <div className="p-2 bg-orange-100 rounded-lg">
                 <Calendar className="h-4 w-4 text-orange-600" />
               </div>
               <div>
                 <p className="text-sm text-gray-500">Member Since</p>
                 <p className="font-medium">
-                  {new Date(customer.createdAt).toLocaleDateString()}
+                  {customer.createdAt ? new Date(customer.createdAt).toLocaleDateString() : 'N/A'}
                 </p>
               </div>
             </div>
@@ -146,10 +137,10 @@ export default async function CustomerDetailsPage({ params }: CustomerDetailsPag
               </Badge>
             ))}
           </div>
-          {customer.allergies && (
+          {customer.allergens && customer.allergens.length > 0 && (
             <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <p className="text-sm font-medium text-yellow-800">Allergies:</p>
-              <p className="text-sm text-yellow-700 mt-1">{customer.allergies}</p>
+              <p className="text-sm font-medium text-yellow-800">Allergens:</p>
+              <p className="text-sm text-yellow-700 mt-1">{customer.allergens.join(', ')}</p>
             </div>
           )}
         </Card>
