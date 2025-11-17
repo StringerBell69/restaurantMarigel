@@ -9,9 +9,9 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navigation = [
-    { name: "Home", href: "/" },
+    { name: "Accueil", href: "/" },
     { name: "Menu", href: "/menu" },
-    { name: "About", href: "/about" },
+    { name: "À Propos", href: "/about" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -43,13 +43,13 @@ export function Header() {
           <Link href="/my-reservations">
             <Button variant="outline" size="sm">
               <Users className="mr-2 h-4 w-4" />
-              My Reservations
+              Mes Réservations
             </Button>
           </Link>
           <Link href="/reservation">
             <Button size="sm" className="bg-restaurant-burgundy hover:bg-restaurant-burgundy/90">
               <Calendar className="mr-2 h-4 w-4" />
-              Reserve Table
+              Réserver une Table
             </Button>
           </Link>
         </div>
@@ -86,13 +86,13 @@ export function Header() {
               <Link href="/my-reservations" className="block">
                 <Button variant="outline" className="w-full" onClick={() => setMobileMenuOpen(false)}>
                   <Users className="mr-2 h-4 w-4" />
-                  My Reservations
+                  Mes Réservations
                 </Button>
               </Link>
               <Link href="/reservation" className="block">
                 <Button className="w-full bg-restaurant-burgundy" onClick={() => setMobileMenuOpen(false)}>
                   <Calendar className="mr-2 h-4 w-4" />
-                  Reserve Table
+                  Réserver une Table
                 </Button>
               </Link>
             </div>

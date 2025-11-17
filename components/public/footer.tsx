@@ -14,14 +14,14 @@ export function Footer() {
               Marigel
             </h3>
             <p className="text-sm text-muted-foreground">
-              Experience exceptional fine dining in an elegant atmosphere.
-              We create unforgettable culinary moments.
+              Découvrez une gastronomie d'exception dans une atmosphère élégante.
+              Nous créons des moments culinaires inoubliables.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold">Quick Links</h4>
+            <h4 className="mb-4 text-sm font-semibold">Liens Rapides</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/menu" className="text-muted-foreground hover:text-foreground">
@@ -30,12 +30,12 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/reservation" className="text-muted-foreground hover:text-foreground">
-                  Reservations
+                  Réservations
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="text-muted-foreground hover:text-foreground">
-                  About Us
+                  À Propos
                 </Link>
               </li>
               <li>
@@ -67,11 +67,11 @@ export function Footer() {
 
           {/* Hours & Social */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold">Hours</h4>
+            <h4 className="mb-4 text-sm font-semibold">Horaires</h4>
             <div className="mb-4 space-y-1 text-sm text-muted-foreground">
-              <p>Lunch: 11:00 AM - 3:00 PM</p>
-              <p>Dinner: 6:00 PM - 11:00 PM</p>
-              <p className="mt-2 text-xs">Closed Mondays</p>
+              <p>Déjeuner: 11h00 - 15h00</p>
+              <p>Dîner: 18h00 - 23h00</p>
+              <p className="mt-2 text-xs">Fermé le lundi</p>
             </div>
             <div className="flex gap-4">
               <a href="#" className="text-muted-foreground hover:text-restaurant-burgundy">
@@ -88,7 +88,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; {currentYear} Restaurant Marigel. All rights reserved.</p>
+          <p>&copy; {currentYear} Restaurant Marigel. Tous droits réservés.</p>
         </div>
       </div>
     </footer>

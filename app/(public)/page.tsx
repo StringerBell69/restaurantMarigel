@@ -10,11 +10,11 @@ export default function HomePage() {
       <section className="relative flex min-h-[600px] items-center justify-center bg-gradient-to-br from-restaurant-burgundy to-restaurant-burgundy/80 px-4 py-20 text-white">
         <div className="container max-w-4xl text-center">
           <h1 className="mb-6 font-serif text-5xl font-bold leading-tight md:text-7xl">
-            Experience Fine Dining Excellence
+            Découvrez l'Excellence Gastronomique
           </h1>
           <p className="mb-8 text-lg text-white/90 md:text-xl">
-            Discover exceptional cuisine crafted with passion and served with elegance.
-            Reserve your table for an unforgettable dining experience.
+            Savourez une cuisine exceptionnelle préparée avec passion et servie avec élégance.
+            Réservez votre table pour une expérience culinaire inoubliable.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link href="/reservation">
@@ -23,7 +23,7 @@ export default function HomePage() {
                 className="bg-white text-restaurant-burgundy hover:bg-white/90"
               >
                 <Calendar className="mr-2 h-5 w-5" />
-                Reserve a Table
+                Réserver une Table
               </Button>
             </Link>
             <Link href="/menu">
@@ -32,7 +32,7 @@ export default function HomePage() {
                 variant="outline"
                 className="border-white text-white hover:bg-white/10"
               >
-                View Menu
+                Voir le Menu
               </Button>
             </Link>
           </div>
@@ -47,9 +47,9 @@ export default function HomePage() {
               <div className="mb-4 rounded-full bg-restaurant-burgundy/10 p-3">
                 <Star className="h-8 w-8 text-restaurant-burgundy" />
               </div>
-              <h3 className="mb-2 text-xl font-semibold">Michelin Quality</h3>
+              <h3 className="mb-2 text-xl font-semibold">Qualité Michelin</h3>
               <p className="text-muted-foreground">
-                Award-winning cuisine prepared by our expert culinary team
+                Une cuisine primée préparée par notre équipe culinaire experte
               </p>
             </CardContent>
           </Card>
@@ -59,9 +59,9 @@ export default function HomePage() {
               <div className="mb-4 rounded-full bg-restaurant-burgundy/10 p-3">
                 <Heart className="h-8 w-8 text-restaurant-burgundy" />
               </div>
-              <h3 className="mb-2 text-xl font-semibold">Exceptional Service</h3>
+              <h3 className="mb-2 text-xl font-semibold">Service Exceptionnel</h3>
               <p className="text-muted-foreground">
-                Attentive staff dedicated to making your experience perfect
+                Une équipe attentive dédiée à rendre votre expérience parfaite
               </p>
             </CardContent>
           </Card>
@@ -71,9 +71,9 @@ export default function HomePage() {
               <div className="mb-4 rounded-full bg-restaurant-burgundy/10 p-3">
                 <Award className="h-8 w-8 text-restaurant-burgundy" />
               </div>
-              <h3 className="mb-2 text-xl font-semibold">Elegant Ambiance</h3>
+              <h3 className="mb-2 text-xl font-semibold">Ambiance Élégante</h3>
               <p className="text-muted-foreground">
-                Beautiful setting perfect for any special occasion
+                Un cadre magnifique parfait pour toute occasion spéciale
               </p>
             </CardContent>
           </Card>
@@ -85,27 +85,27 @@ export default function HomePage() {
         <div className="container px-4">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="mb-4 font-serif text-3xl font-bold md:text-4xl">
-              Why Choose Marigel?
+              Pourquoi Choisir Marigel?
             </h2>
             <p className="mb-12 text-lg text-muted-foreground">
-              We combine traditional culinary techniques with modern innovation
-              to create memorable dining experiences
+              Nous combinons les techniques culinaires traditionnelles avec l'innovation moderne
+              pour créer des expériences gastronomiques mémorables
             </p>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="rounded-lg border bg-background p-6">
                 <Clock className="mb-3 h-8 w-8 text-restaurant-burgundy" />
-                <h3 className="mb-2 font-semibold">Easy Reservations</h3>
+                <h3 className="mb-2 font-semibold">Réservations Faciles</h3>
                 <p className="text-sm text-muted-foreground">
-                  Book your table online in minutes with our advanced reservation system
+                  Réservez votre table en ligne en quelques minutes avec notre système de réservation avancé
                 </p>
               </div>
 
               <div className="rounded-lg border bg-background p-6">
                 <Users className="mb-3 h-8 w-8 text-restaurant-burgundy" />
-                <h3 className="mb-2 font-semibold">Private Events</h3>
+                <h3 className="mb-2 font-semibold">Événements Privés</h3>
                 <p className="text-sm text-muted-foreground">
-                  Perfect for celebrations, business dinners, and special occasions
+                  Parfait pour les célébrations, les dîners d'affaires et les occasions spéciales
                 </p>
               </div>
             </div>
@@ -117,10 +117,10 @@ export default function HomePage() {
       <section className="container px-4 py-16">
         <div className="mx-auto max-w-4xl rounded-2xl bg-gradient-to-r from-restaurant-burgundy to-restaurant-burgundy/90 p-12 text-center text-white">
           <h2 className="mb-4 font-serif text-3xl font-bold md:text-4xl">
-            Ready to Dine with Us?
+            Prêt à Dîner avec Nous?
           </h2>
           <p className="mb-8 text-lg text-white/90">
-            Reserve your table now and experience culinary excellence
+            Réservez votre table maintenant et découvrez l'excellence culinaire
           </p>
           <Link href="/reservation">
             <Button
@@ -128,7 +128,7 @@ export default function HomePage() {
               className="bg-white text-restaurant-burgundy hover:bg-white/90"
             >
               <Calendar className="mr-2 h-5 w-5" />
-              Book Your Table
+              Réservez Votre Table
             </Button>
           </Link>
         </div>
@@ -139,25 +139,25 @@ export default function HomePage() {
         <div className="container px-4">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             <div className="text-center">
-              <h3 className="mb-2 font-semibold">Location</h3>
+              <h3 className="mb-2 font-semibold">Emplacement</h3>
               <p className="text-sm text-muted-foreground">
-                123 Fine Dining Street<br />
-                Downtown, City 12345
+                123 Rue de la Gastronomie<br />
+                Centre-ville, Paris 75001
               </p>
             </div>
 
             <div className="text-center">
-              <h3 className="mb-2 font-semibold">Hours</h3>
+              <h3 className="mb-2 font-semibold">Horaires</h3>
               <p className="text-sm text-muted-foreground">
-                Lunch: 11:00 AM - 3:00 PM<br />
-                Dinner: 6:00 PM - 11:00 PM
+                Déjeuner: 11h00 - 15h00<br />
+                Dîner: 18h00 - 23h00
               </p>
             </div>
 
             <div className="text-center">
               <h3 className="mb-2 font-semibold">Contact</h3>
               <p className="text-sm text-muted-foreground">
-                Phone: +1 (555) 123-4567<br />
+                Téléphone: +33 1 23 45 67 89<br />
                 Email: info@restaurantmarigel.com
               </p>
             </div>
