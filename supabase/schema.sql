@@ -445,7 +445,7 @@ CREATE TRIGGER update_message_templates_updated_at BEFORE UPDATE ON message_temp
 
 -- Insert default settings
 INSERT INTO restaurant_settings (setting_key, setting_value) VALUES
-  ('restaurant_name', '"Restaurant Marigel"'::jsonb),
+  ('restaurant_name', '"SABORES DE PORTUGAL"'::jsonb),
   ('max_advance_booking_days', '60'::jsonb),
   ('min_advance_booking_hours', '2'::jsonb),
   ('default_reservation_duration', '120'::jsonb),

@@ -11,7 +11,7 @@ export function Footer() {
           {/* About */}
           <div className="space-y-4">
             <h3 className="font-serif text-xl font-bold text-restaurant-burgundy">
-              Marigel
+              SABORES DE PORTUGAL
             </h3>
             <p className="text-sm text-muted-foreground">
               Découvrez une gastronomie d&apos;exception dans une atmosphère élégante.
@@ -52,11 +52,11 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
-                123 Fine Dining St, City
+                26b rue Joseph Longarini, 69700 Givors
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4" />
-                +1 (555) 123-4567
+                0753454916
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4" />
@@ -88,7 +88,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; {currentYear} Restaurant Marigel. Tous droits réservés.</p>
+          <p>&copy; {currentYear} SABORES DE PORTUGAL. Tous droits réservés.</p>
         </div>
       </div>
     </footer>

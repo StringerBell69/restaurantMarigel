@@ -47,8 +47,8 @@ export default function ContactPage() {
               </div>
               <h3 className="mb-2 font-semibold">Adresse</h3>
               <p className="text-sm text-muted-foreground">
-                123 Rue de la Gastronomie<br />
-                Centre-ville, Paris 75001<br />
+                26b rue Joseph Longarini<br />
+                69700 Givors<br />
                 France
               </p>
             </CardContent>
@@ -61,8 +61,7 @@ export default function ContactPage() {
               </div>
               <h3 className="mb-2 font-semibold">Téléphone</h3>
               <p className="text-sm text-muted-foreground">
-                +33 1 23 45 67 89<br />
-                +33 6 12 34 56 78<br />
+                0753454916<br />
                 (Lun-Sam 10h-22h)
               </p>
             </CardContent>
@@ -198,8 +197,8 @@ export default function ContactPage() {
             <div className="flex h-[400px] items-center justify-center bg-muted">
               <div className="text-center">
                 <MapPin className="mx-auto mb-4 h-12 w-12 text-restaurant-burgundy" />
-                <p className="text-lg font-semibold">123 Rue de la Gastronomie</p>
-                <p className="text-muted-foreground">Centre-ville, Paris 75001, France</p>
+                <p className="text-lg font-semibold">26b rue Joseph Longarini</p>
+                <p className="text-muted-foreground">69700 Givors, France</p>
               </div>
             </div>
           </div>

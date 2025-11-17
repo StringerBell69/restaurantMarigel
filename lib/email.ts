@@ -27,9 +27,9 @@ export async function sendOTPEmail({
   try {
     const resendClient = getResendClient();
     const { data, error } = await resendClient.emails.send({
-      from: 'Restaurant Marigel <noreply@sumbo.fr>',
+      from: 'SABORES DE PORTUGAL <noreply@sumbo.fr>',
       to: email,
-      subject: 'Votre code de vérification - Restaurant Marigel',
+      subject: 'Votre code de vérification - SABORES DE PORTUGAL',
       html: `
         <!DOCTYPE html>
         <html>
@@ -47,7 +47,7 @@ export async function sendOTPEmail({
                     <tr>
                       <td style="background-color: #8B0000; padding: 40px 30px; text-align: center;">
                         <h1 style="margin: 0; color: #ffffff; font-size: 32px; font-family: Georgia, serif; font-weight: normal;">
-                          Restaurant Marigel
+                          SABORES DE PORTUGAL
                         </h1>
                       </td>
                     </tr>
@@ -64,7 +64,7 @@ export async function sendOTPEmail({
                         </p>
 
                         <p style="margin: 0 0 30px 0; color: #666666; font-size: 16px; line-height: 1.5;">
-                          Merci d'avoir choisi le Restaurant Marigel pour votre réservation.
+                          Merci d'avoir choisi le SABORES DE PORTUGAL pour votre réservation.
                           Voici votre code de vérification :
                         </p>
 
@@ -94,7 +94,7 @@ export async function sendOTPEmail({
 
                         <p style="margin: 0; color: #666666; font-size: 14px; line-height: 1.5;">
                           Cordialement,<br/>
-                          <strong style="color: #8B0000;">L'équipe Restaurant Marigel</strong>
+                          <strong style="color: #8B0000;">L'équipe SABORES DE PORTUGAL</strong>
                         </p>
                       </td>
                     </tr>
@@ -103,7 +103,7 @@ export async function sendOTPEmail({
                     <tr>
                       <td style="background-color: #f8f8f8; padding: 30px; text-align: center; border-top: 1px solid #eeeeee;">
                         <p style="margin: 0 0 10px 0; color: #999999; font-size: 12px;">
-                          Restaurant Marigel
+                          SABORES DE PORTUGAL
                         </p>
                         <p style="margin: 0; color: #999999; font-size: 12px;">
                           Cet email a été envoyé automatiquement, merci de ne pas y répondre.
@@ -119,7 +119,7 @@ export async function sendOTPEmail({
       `,
       // Text version for email clients that don't support HTML
       text: `
-Restaurant Marigel - Code de vérification
+SABORES DE PORTUGAL - Code de vérification
 
 Bonjour ${firstName} ${lastName},
 
@@ -130,7 +130,7 @@ Ce code expire dans 10 minutes.
 Si vous n'avez pas demandé ce code, veuillez ignorer cet email.
 
 Cordialement,
-L'équipe Restaurant Marigel
+L'équipe SABORES DE PORTUGAL
       `.trim(),
     });
 
