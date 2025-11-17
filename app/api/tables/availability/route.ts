@@ -67,13 +67,18 @@ export async function GET(request: NextRequest) {
       );
 
     // Get all table blocks for the specified date
+    // Note: tableBlocks uses datetime fields, so we need to check if they overlap with the requested date
+    const startOfDay = new Date(`${date}T00:00:00`);
+    const endOfDay = new Date(`${date}T23:59:59`);
+
     const blocks = await db
       .select()
       .from(tableBlocks)
       .where(
         and(
-          eq(tableBlocks.blockDate, date),
-          eq(tableBlocks.isActive, true)
+          // Block overlaps with the date if: block_start <= end_of_day AND block_end >= start_of_day
+          lte(tableBlocks.startDatetime, endOfDay),
+          gte(tableBlocks.endDatetime, startOfDay)
         )
       );
 
@@ -83,18 +88,28 @@ export async function GET(request: NextRequest) {
       const isBlocked = blocks.some((block) => {
         if (block.tableId !== table.id) return false;
 
-        // Check if block time overlaps with requested time
-        const blockStart = block.startTime || '00:00:00';
-        const blockEnd = block.endTime || '23:59:59';
+        // Extract time from datetime for comparison
+        const blockStart = block.startDatetime ? new Date(block.startDatetime) : null;
+        const blockEnd = block.endDatetime ? new Date(block.endDatetime) : null;
 
-        return !(endTime <= blockStart || startTime >= blockEnd);
+        if (!blockStart || !blockEnd) return false;
+
+        // Create datetime objects for the requested time range on the specified date
+        const requestStart = new Date(`${date}T${startTime}`);
+        const requestEnd = new Date(`${date}T${endTime}`);
+
+        // Check if times overlap: NOT (requestEnd <= blockStart OR requestStart >= blockEnd)
+        return !(requestEnd <= blockStart || requestStart >= blockEnd);
       });
 
       if (isBlocked) return false;
 
       // Check if table has conflicting reservations
       const hasConflict = existingReservations.some((reservation) => {
-        if (reservation.tableId !== table.id) return false;
+        // Check if this table is assigned to the reservation
+        if (!reservation.assignedTables || !reservation.assignedTables.includes(table.id)) {
+          return false;
+        }
 
         // Calculate reservation end time
         const [resHours, resMinutes] = (reservation.reservationTime || '00:00:00').split(':').map(Number);
@@ -117,7 +132,7 @@ export async function GET(request: NextRequest) {
       tableNumber: table.tableNumber,
       capacity: table.capacityMax,
       capacityMin: table.capacityMin,
-      location: table.location,
+      tableType: table.tableType,
       features: table.features,
       available: true,
     }));
