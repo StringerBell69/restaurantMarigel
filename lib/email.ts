@@ -1,6 +1,15 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy initialization to prevent build-time errors when RESEND_API_KEY is not set
+let resend: Resend | null = null;
+
+function getResendClient(): Resend {
+  if (!resend) {
+    const apiKey = process.env.RESEND_API_KEY || '';
+    resend = new Resend(apiKey);
+  }
+  return resend;
+}
 
 interface SendOTPEmailParams {
   email: string;
@@ -16,7 +25,8 @@ export async function sendOTPEmail({
   otpCode,
 }: SendOTPEmailParams) {
   try {
-    const { data, error } = await resend.emails.send({
+    const resendClient = getResendClient();
+    const { data, error } = await resendClient.emails.send({
       from: 'Restaurant Marigel <noreply@sumbo.fr>',
       to: email,
       subject: 'Votre code de vérification - Restaurant Marigel',
