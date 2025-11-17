@@ -1,22 +1,30 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Calendar, Clock, Users, ArrowRight, ArrowLeft, Check, Mail, Phone, MapPin } from "lucide-react";
+import { Calendar, Clock, Users, ArrowRight, ArrowLeft, Check, Mail, Phone, MapPin, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
 
 interface Table {
   id: string;
   name: string;
+  tableNumber: number;
   capacity: number;
+  capacityMin: number;
+  location?: string;
+  features?: string[];
   available: boolean;
 }
 
 export default function ReservationPage() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     date: "",
     time: "",
@@ -35,50 +43,157 @@ export default function ReservationPage() {
   const [availableTables, setAvailableTables] = useState<Table[]>([]);
   const [otpSent, setOtpSent] = useState(false);
   const [otpCode, setOtpCode] = useState("");
+  const [generatedOtp, setGeneratedOtp] = useState("");
 
-  // Simulated table data - in production this would come from the API
-  const mockTables: Table[] = [
-    { id: "1", name: "Table 1", capacity: 2, available: true },
-    { id: "2", name: "Table 2", capacity: 2, available: true },
-    { id: "3", name: "Table 3", capacity: 4, available: true },
-    { id: "4", name: "Table 4", capacity: 4, available: false },
-    { id: "5", name: "Table 5", capacity: 6, available: true },
-    { id: "6", name: "Table 6", capacity: 8, available: true },
-  ];
-
-  const handleCheckAvailability = (e: React.FormEvent) => {
+  // Step 1: Check availability
+  const handleCheckAvailability = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Filter tables based on party size
-    const filtered = mockTables.filter(
-      (table) => table.capacity >= formData.guests && table.available
-    );
-    setAvailableTables(filtered);
-    setStep(2);
-  };
+    setLoading(true);
 
-  const handleSelectTable = (table: Table) => {
-    setFormData({ ...formData, tableId: table.id, tableName: table.name });
-    setStep(3);
-  };
+    try {
+      const response = await fetch(
+        `/api/tables/availability?date=${formData.date}&time=${formData.time}&guests=${formData.guests}&duration=${formData.duration}`
+      );
 
-  const handleSendOTP = () => {
-    // In production, this would call an API to send OTP
-    console.log("Envoi du code OTP à:", formData.email || formData.phone);
-    setOtpSent(true);
-  };
+      const data = await response.json();
 
-  const handleVerifyOTP = () => {
-    // In production, this would verify the OTP with the backend
-    if (otpCode.length === 6) {
-      setFormData({ ...formData, otpVerified: true });
-      setStep(4);
+      if (!response.ok) {
+        throw new Error(data.error || 'Erreur lors de la vérification de la disponibilité');
+      }
+
+      if (data.availableTables.length === 0) {
+        toast.error('Aucune table disponible pour votre sélection');
+        return;
+      }
+
+      setAvailableTables(data.availableTables);
+      setStep(2);
+      toast.success(`${data.totalAvailable} table(s) disponible(s)`);
+    } catch (error: any) {
+      toast.error(error.message || 'Erreur lors de la vérification de la disponibilité');
+    } finally {
+      setLoading(false);
     }
   };
 
+  // Step 2: Select table
+  const handleSelectTable = (table: Table) => {
+    setFormData({ ...formData, tableId: table.id, tableName: table.name });
+    setStep(3);
+    toast.success(`Table ${table.tableNumber} sélectionnée`);
+  };
+
+  // Step 3: Send OTP
+  const handleSendOTP = async () => {
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/otp/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.email,
+          phone: formData.phone,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erreur lors de l\'envoi du code');
+      }
+
+      // Store the generated OTP for dev purposes
+      if (data.devNote) {
+        const match = data.devNote.match(/Code OTP: (\d{6})/);
+        if (match) {
+          setGeneratedOtp(match[1]);
+          console.log('🔐 Code OTP généré:', match[1]);
+        }
+      }
+
+      setOtpSent(true);
+      toast.success('Code de vérification envoyé !');
+    } catch (error: any) {
+      toast.error(error.message || 'Erreur lors de l\'envoi du code');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Step 3: Verify OTP
+  const handleVerifyOTP = async () => {
+    if (otpCode.length !== 6) {
+      toast.error('Le code doit contenir 6 chiffres');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/otp/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.email,
+          code: otpCode,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Code invalide');
+      }
+
+      setFormData({ ...formData, otpVerified: true });
+      setStep(4);
+      toast.success('Code vérifié avec succès !');
+    } catch (error: any) {
+      toast.error(error.message || 'Code invalide');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Step 4: Final submission
   const handleFinalSubmit = async () => {
-    // In production, this would create the reservation
-    console.log("Réservation finale:", formData);
-    alert("Réservation confirmée! Vous recevrez un email de confirmation.");
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/reservations/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          date: formData.date,
+          time: formData.time,
+          guests: formData.guests,
+          duration: formData.duration,
+          tableId: formData.tableId,
+          tableName: formData.tableName,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          specialRequests: formData.specialRequests,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erreur lors de la création de la réservation');
+      }
+
+      // Redirect to success page with reservation details
+      router.push(`/reservation/success?number=${data.reservation.reservationNumber}`);
+    } catch (error: any) {
+      toast.error(error.message || 'Erreur lors de la création de la réservation');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -143,6 +258,7 @@ export default function ReservationPage() {
                   type="date"
                   required
                   min={new Date().toISOString().split("T")[0]}
+                  max={new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]}
                   value={formData.date}
                   onChange={(e) =>
                     setFormData({ ...formData, date: e.target.value })
@@ -267,10 +383,19 @@ export default function ReservationPage() {
                 type="submit"
                 className="w-full bg-restaurant-burgundy hover:bg-restaurant-burgundy/90"
                 size="lg"
-                disabled={!formData.date || !formData.time}
+                disabled={!formData.date || !formData.time || loading}
               >
-                Vérifier la Disponibilité
-                <ArrowRight className="ml-2 h-4 w-4" />
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Vérification...
+                  </>
+                ) : (
+                  <>
+                    Vérifier la Disponibilité
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </>
+                )}
               </Button>
             </form>
           </CardContent>
@@ -314,9 +439,10 @@ export default function ReservationPage() {
                       <div className="flex items-center gap-3">
                         <MapPin className="h-5 w-5 text-restaurant-burgundy" />
                         <div className="text-left">
-                          <div className="font-semibold">{table.name}</div>
+                          <div className="font-semibold">Table {table.tableNumber}</div>
                           <div className="text-sm text-muted-foreground">
                             Capacité: {table.capacity} personnes
+                            {table.location && ` • ${table.location}`}
                           </div>
                         </div>
                       </div>
@@ -422,9 +548,16 @@ export default function ReservationPage() {
               <Button
                 className="w-full bg-restaurant-burgundy hover:bg-restaurant-burgundy/90"
                 onClick={handleSendOTP}
-                disabled={!formData.email || !formData.phone || !formData.firstName || !formData.lastName}
+                disabled={!formData.email || !formData.phone || !formData.firstName || !formData.lastName || loading}
               >
-                Envoyer le Code de Vérification
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Envoi...
+                  </>
+                ) : (
+                  "Envoyer le Code de Vérification"
+                )}
               </Button>
             ) : (
               <div className="space-y-4">
@@ -435,19 +568,33 @@ export default function ReservationPage() {
                     placeholder="Entrez le code à 6 chiffres"
                     maxLength={6}
                     value={otpCode}
-                    onChange={(e) => setOtpCode(e.target.value)}
+                    onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ''))}
                   />
                   <p className="text-xs text-muted-foreground">
-                    Un code a été envoyé à votre email et téléphone
+                    Un code a été envoyé à votre email
+                    {generatedOtp && (
+                      <span className="block mt-1 text-restaurant-burgundy font-medium">
+                        📧 Code de développement: {generatedOtp}
+                      </span>
+                    )}
                   </p>
                 </div>
                 <Button
                   className="w-full bg-restaurant-burgundy hover:bg-restaurant-burgundy/90"
                   onClick={handleVerifyOTP}
-                  disabled={otpCode.length !== 6}
+                  disabled={otpCode.length !== 6 || loading}
                 >
-                  Vérifier et Continuer
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  {loading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Vérification...
+                    </>
+                  ) : (
+                    <>
+                      Vérifier et Continuer
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </>
+                  )}
                 </Button>
               </div>
             )}
@@ -538,15 +685,26 @@ export default function ReservationPage() {
               className="w-full bg-restaurant-burgundy hover:bg-restaurant-burgundy/90"
               size="lg"
               onClick={handleFinalSubmit}
+              disabled={loading}
             >
-              <Check className="mr-2 h-5 w-5" />
-              Confirmer la Réservation
+              {loading ? (
+                <>
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  Création en cours...
+                </>
+              ) : (
+                <>
+                  <Check className="mr-2 h-5 w-5" />
+                  Confirmer la Réservation
+                </>
+              )}
             </Button>
 
             <Button
               variant="outline"
               className="w-full"
               onClick={() => setStep(3)}
+              disabled={loading}
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
               Retour
