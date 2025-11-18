@@ -1,5 +1,5 @@
 /**
- * Common database queries for Restaurant Marigel
+ * Common database queries for Restaurant SABORES DE PORTUGAL
  * Using Drizzle ORM for type-safe database access
  */
 

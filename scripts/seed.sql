@@ -1,4 +1,4 @@
--- Restaurant Marigel - Seed Data for Testing
+-- Restaurant SABORES DE PORTUGAL - Seed Data for Testing
 -- Run this after setting up the main schema
 
 -- ============================================================================
@@ -111,7 +111,7 @@ INSERT INTO floor_plans (name, floor_count, is_active) VALUES
 -- ============================================================================
 
 INSERT INTO message_templates (name, template_type, channel, language, subject, content, is_active) VALUES
-('Thank You Email', 'thank_you', 'email', 'en', 'Thank you for dining with us!', 'Dear {name},\n\nThank you for choosing {restaurant_name}! We hope you enjoyed your dining experience.\n\nWe would love to hear your feedback. Please take a moment to leave us a review.\n\nWe look forward to welcoming you again soon!\n\nBest regards,\nThe Marigel Team', true),
+('Thank You Email', 'thank_you', 'email', 'en', 'Thank you for dining with us!', 'Dear {name},\n\nThank you for choosing {restaurant_name}! We hope you enjoyed your dining experience.\n\nWe would love to hear your feedback. Please take a moment to leave us a review.\n\nWe look forward to welcoming you again soon!\n\nBest regards,\nThe SABORES DE PORTUGAL Team', true),
 ('Cancellation Confirmation', 'cancellation', 'whatsapp', 'en', NULL, 'Hi {name}, your reservation for {date} at {time} has been cancelled. We hope to see you again soon at {restaurant_name}!', true),
 ('Modification Confirmation', 'modification', 'email', 'en', 'Reservation Updated', 'Hi {name},\n\nYour reservation has been updated:\n\nNew Date: {date}\nNew Time: {time}\nGuests: {guests}\nTable: {table}\n\nConfirmation: {reservation_number}\n\nSee you soon!', true);
 
@@ -119,7 +119,7 @@ INSERT INTO message_templates (name, template_type, channel, language, subject, 
 -- COMMENTS
 -- ============================================================================
 
-COMMENT ON TABLE menu_items IS 'Sample menu items for Restaurant Marigel - adjust prices and items as needed';
+COMMENT ON TABLE menu_items IS 'Sample menu items for Restaurant SABORES DE PORTUGAL - adjust prices and items as needed';
 COMMENT ON TABLE restaurant_tables IS 'Sample table configuration - customize based on your actual floor plan';
 COMMENT ON TABLE customers IS 'Test customer data - replace with real customers in production';
 COMMENT ON TABLE reservations IS 'Sample reservations for testing - these will be dated from when you run this script';

@@ -1,6 +1,6 @@
 # Implementation Guide
 
-This document provides guidance on implementing the remaining features of the Restaurant Marigel reservation system.
+This document provides guidance on implementing the remaining features of the Restaurant SABORES DE PORTUGAL reservation system.
 
 ## ✅ What's Already Implemented
 
@@ -480,4 +480,4 @@ Before deploying to production:
 7. User acceptance testing
 8. Deploy to production
 
-Good luck building Restaurant Marigel! 🍽️
+Good luck building Restaurant SABORES DE PORTUGAL! 🍽️

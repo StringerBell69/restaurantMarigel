@@ -15,7 +15,7 @@ Ce guide explique comment configurer l'envoi d'emails pour les codes OTP avec Re
 1. Connectez-vous à votre dashboard Resend
 2. Allez dans **API Keys**
 3. Cliquez sur **Create API Key**
-4. Donnez-lui un nom (ex: "Restaurant Marigel OTP")
+4. Donnez-lui un nom (ex: "Restaurant SABORES DE PORTUGAL OTP")
 5. Copiez la clé (vous ne pourrez la voir qu'une seule fois !)
 
 ### 3. Configurer le domaine d'envoi
@@ -74,7 +74,7 @@ RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxx
 Si vous utilisez le domaine de test, modifiez temporairement `/lib/email.ts` :
 
 ```typescript
-from: 'Restaurant Marigel <onboarding@resend.dev>',
+from: 'Restaurant SABORES DE PORTUGAL <onboarding@resend.dev>',
 ```
 
 Puis testez en créant une réservation. L'email sera envoyé uniquement à l'adresse email enregistrée sur Resend.
@@ -84,7 +84,7 @@ Puis testez en créant une réservation. L'email sera envoyé uniquement à l'ad
 Une fois votre domaine vérifié, gardez la configuration actuelle :
 
 ```typescript
-from: 'Restaurant Marigel <noreply@sumbo.fr>',
+from: 'Restaurant SABORES DE PORTUGAL <noreply@sumbo.fr>',
 ```
 
 ## Limites et tarifs

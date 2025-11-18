@@ -13,8 +13,9 @@ export default function HomePage() {
             Découvrez l&apos;Excellence Gastronomique
           </h1>
           <p className="mb-8 text-lg text-white/90 md:text-xl">
-            Savourez une cuisine exceptionnelle préparée avec passion et servie avec élégance.
-            Réservez votre table pour une expérience culinaire inoubliable.
+            Savourez une cuisine exceptionnelle préparée avec passion et servie
+            avec élégance. Réservez votre table pour une expérience culinaire
+            inoubliable.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link href="/reservation">
@@ -58,7 +59,9 @@ export default function HomePage() {
               <div className="mb-4 rounded-full bg-restaurant-burgundy/10 p-3">
                 <Heart className="h-8 w-8 text-restaurant-burgundy" />
               </div>
-              <h3 className="mb-2 text-xl font-semibold">Service Exceptionnel</h3>
+              <h3 className="mb-2 text-xl font-semibold">
+                Service Exceptionnel
+              </h3>
               <p className="text-muted-foreground">
                 Une équipe attentive dédiée à rendre votre expérience parfaite
               </p>
@@ -84,11 +87,12 @@ export default function HomePage() {
         <div className="container px-4">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="mb-4 font-serif text-3xl font-bold md:text-4xl">
-              Pourquoi Choisir Marigel?
+              Pourquoi Choisir SABORES DE PORTUGAL?
             </h2>
             <p className="mb-12 text-lg text-muted-foreground">
-              Nous combinons les techniques culinaires traditionnelles avec l&apos;innovation moderne
-              pour créer des expériences gastronomiques mémorables
+              Nous combinons les techniques culinaires traditionnelles avec
+              l&apos;innovation moderne pour créer des expériences
+              gastronomiques mémorables
             </p>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -96,7 +100,8 @@ export default function HomePage() {
                 <Clock className="mb-3 h-8 w-8 text-restaurant-burgundy" />
                 <h3 className="mb-2 font-semibold">Réservations Faciles</h3>
                 <p className="text-sm text-muted-foreground">
-                  Réservez votre table en ligne en quelques minutes avec notre système de réservation avancé
+                  Réservez votre table en ligne en quelques minutes avec notre
+                  système de réservation avancé
                 </p>
               </div>
 
@@ -104,7 +109,8 @@ export default function HomePage() {
                 <Users className="mb-3 h-8 w-8 text-restaurant-burgundy" />
                 <h3 className="mb-2 font-semibold">Événements Privés</h3>
                 <p className="text-sm text-muted-foreground">
-                  Parfait pour les célébrations, les dîners d&apos;affaires et les occasions spéciales
+                  Parfait pour les célébrations, les dîners d&apos;affaires et
+                  les occasions spéciales
                 </p>
               </div>
             </div>
@@ -119,7 +125,8 @@ export default function HomePage() {
             Prêt à Dîner avec Nous?
           </h2>
           <p className="mb-8 text-lg text-white/90">
-            Réservez votre table maintenant et découvrez l&apos;excellence culinaire
+            Réservez votre table maintenant et découvrez l&apos;excellence
+            culinaire
           </p>
           <Link href="/reservation">
             <Button
@@ -140,15 +147,16 @@ export default function HomePage() {
             <div className="text-center">
               <h3 className="mb-2 font-semibold">Emplacement</h3>
               <p className="text-sm text-muted-foreground">
-                123 Rue de la Gastronomie<br />
-                Centre-ville, Paris 75001
+                26b rue Joseph Longarini<br />
+                69700 Givors
               </p>
             </div>
 
             <div className="text-center">
               <h3 className="mb-2 font-semibold">Horaires</h3>
               <p className="text-sm text-muted-foreground">
-                Déjeuner: 11h00 - 15h00<br />
+                Déjeuner: 11h00 - 15h00
+                <br />
                 Dîner: 18h00 - 23h00
               </p>
             </div>
@@ -156,7 +164,8 @@ export default function HomePage() {
             <div className="text-center">
               <h3 className="mb-2 font-semibold">Contact</h3>
               <p className="text-sm text-muted-foreground">
-                Téléphone: +33 1 23 45 67 89<br />
+                Téléphone: 07 53 45 49 16
+                <br />
                 Email: info@sumbo.fr
               </p>
             </div>
