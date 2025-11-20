@@ -10,6 +10,7 @@ import {
   Settings,
   LogOut,
   UtensilsCrossed,
+  XCircle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -36,6 +37,11 @@ const navItems = [
     title: 'Customers',
     href: '/admin/customers',
     icon: Users,
+  },
+  {
+    title: 'Fermetures',
+    href: '/admin/closures',
+    icon: XCircle,
   },
   {
     title: 'Settings',

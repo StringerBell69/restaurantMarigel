@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Calendar, Clock, Users, ArrowRight, ArrowLeft, Check, Mail, Phone, MapPin, Loader2 } from "lucide-react";
+import { Calendar, Clock, Users, ArrowRight, ArrowLeft, Check, Mail, Phone, MapPin, Loader2, AlertCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
+import { generateTimeSlots, isRestaurantOpen, getNextAvailableDate } from "@/lib/restaurant-hours";
 
 interface Table {
   id: string;
@@ -46,6 +47,30 @@ export default function ReservationPage() {
   const [otpSent, setOtpSent] = useState(false);
   const [otpCode, setOtpCode] = useState("");
   const [canResendOTP, setCanResendOTP] = useState(false);
+  const [availableTimeSlots, setAvailableTimeSlots] = useState<string[]>([]);
+  const [isDateClosed, setIsDateClosed] = useState(false);
+
+  // Update available time slots when date changes
+  useEffect(() => {
+    if (formData.date) {
+      const selectedDate = new Date(formData.date + 'T00:00:00');
+
+      if (isRestaurantOpen(selectedDate)) {
+        const slots = generateTimeSlots(selectedDate);
+        setAvailableTimeSlots(slots);
+        setIsDateClosed(false);
+
+        // Reset time if current selection is not available
+        if (formData.time && !slots.includes(formData.time)) {
+          setFormData({ ...formData, time: "" });
+        }
+      } else {
+        setAvailableTimeSlots([]);
+        setIsDateClosed(true);
+        setFormData({ ...formData, time: "" });
+      }
+    }
+  }, [formData.date]);
 
   // Step 1: Check availability
   const handleCheckAvailability = async (e: React.FormEvent) => {
@@ -281,13 +306,24 @@ export default function ReservationPage() {
                   <Clock className="h-4 w-4 text-restaurant-burgundy" />
                   Heure Préférée
                 </Label>
-                <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-                  {/* Heures Déjeuner */}
-                  <div className="col-span-2 mb-2">
-                    <p className="text-sm font-medium text-muted-foreground">Service Déjeuner</p>
+                {!formData.date ? (
+                  <div className="flex items-center gap-2 rounded-md border border-dashed border-muted-foreground/50 p-4 text-sm text-muted-foreground">
+                    <AlertCircle className="h-4 w-4" />
+                    Veuillez d&apos;abord sélectionner une date
                   </div>
-                  {["11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30"].map(
-                    (time) => (
+                ) : isDateClosed ? (
+                  <div className="flex items-center gap-2 rounded-md border border-orange-500/50 bg-orange-50 p-4 text-sm text-orange-700">
+                    <AlertCircle className="h-4 w-4" />
+                    Le restaurant est fermé ce jour-là (fermé lundi et mercredi)
+                  </div>
+                ) : availableTimeSlots.length === 0 ? (
+                  <div className="flex items-center gap-2 rounded-md border border-muted-foreground/50 p-4 text-sm text-muted-foreground">
+                    <AlertCircle className="h-4 w-4" />
+                    Aucun créneau disponible pour cette date
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-3 gap-2 md:grid-cols-6">
+                    {availableTimeSlots.map((time) => (
                       <Button
                         key={time}
                         type="button"
@@ -297,27 +333,18 @@ export default function ReservationPage() {
                       >
                         {time}
                       </Button>
-                    )
-                  )}
-
-                  {/* Heures Dîner */}
-                  <div className="col-span-2 mb-2 mt-4">
-                    <p className="text-sm font-medium text-muted-foreground">Service Dîner</p>
+                    ))}
                   </div>
-                  {["18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30"].map(
-                    (time) => (
-                      <Button
-                        key={time}
-                        type="button"
-                        variant={formData.time === time ? "default" : "outline"}
-                        className="w-full"
-                        onClick={() => setFormData({ ...formData, time })}
-                      >
-                        {time}
-                      </Button>
-                    )
+                )}
+                <p className="text-xs text-muted-foreground">
+                  {formData.date && !isDateClosed && (
+                    <>
+                      {new Date(formData.date + 'T00:00:00').getDay() === 0
+                        ? 'Dimanche: 12h00 - 17h00'
+                        : 'Horaires: 11h00 - 22h00'}
+                    </>
                   )}
-                </div>
+                </p>
               </div>
 
               {/* Nombre de Convives */}
