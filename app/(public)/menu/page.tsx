@@ -5,101 +5,71 @@ import { UtensilsCrossed, Wine, Coffee } from "lucide-react";
 export default function MenuPage() {
   const starters = [
     {
-      name: "Foie Gras Poêlé",
-      description: "Accompagné de chutney de figues et pain brioché",
-      price: "24€",
+      name: "Pataniscas",
+      description: "Beignets de morue traditionnels portugais",
+      price: "5€",
     },
     {
-      name: "Tartare de Saumon",
-      description: "Avocat, citron vert et câpres",
-      price: "18€",
+      name: "Planche de Fromages Portugais",
+      description: "Sélection de fromages artisanaux du Portugal",
+      price: "13€",
     },
     {
-      name: "Soupe à l'Oignon Gratinée",
-      description: "Traditionnelle, avec croûtons et fromage fondu",
-      price: "12€",
-    },
-    {
-      name: "Salade de Chèvre Chaud",
-      description: "Mesclun, noix, miel et toast de fromage de chèvre",
-      price: "14€",
+      name: "Planche de Charcuterie Portugaise",
+      description: "Assortiment de charcuteries traditionnelles",
+      price: "13€",
     },
   ];
 
   const mains = [
     {
-      name: "Magret de Canard",
-      description: "Sauce aux fruits rouges, gratin dauphinois et légumes de saison",
-      price: "32€",
+      name: "Bacalhau à Braga",
+      description: "Morue traditionnelle préparée à la mode de Braga",
+      price: "22,50€",
       badge: "Spécialité",
     },
     {
-      name: "Boeuf Bourguignon",
-      description: "Mijoté au vin rouge, accompagné de pommes de terre",
-      price: "28€",
+      name: "Bacalhau Braisé",
+      description: "Morue braisée avec pommes de terre et oignons",
+      price: "22,50€",
+      badge: "Spécialité",
     },
     {
-      name: "Loup de Mer Grillé",
-      description: "Risotto aux asperges et sauce beurre blanc",
-      price: "34€",
+      name: "Bitoque de Veau",
+      description: "Steak de veau avec œuf au plat, frites et salade",
+      price: "17€",
     },
     {
-      name: "Coq au Vin",
-      description: "Recette traditionnelle, champignons et lardons",
-      price: "26€",
-    },
-    {
-      name: "Plat Végétarien",
-      description: "Légumes grillés, quinoa et sauce tahini",
-      price: "22€",
-      badge: "Végétarien",
+      name: "Bitoque de Porc",
+      description: "Steak de porc avec œuf au plat, frites et salade",
+      price: "15€",
     },
   ];
 
-  const desserts = [
+  const drinks = [
     {
-      name: "Crème Brûlée",
-      description: "Vanille de Madagascar, caramélisée à la demande",
-      price: "10€",
-      badge: "Classique",
+      name: "Vins Portugais",
+      description: "Sélection de vins rouges, blancs et verts portugais",
+      price: "15€",
+      badge: "Bouteille",
     },
     {
-      name: "Tarte Tatin",
-      description: "Servie tiède avec glace vanille",
-      price: "12€",
-    },
-    {
-      name: "Fondant au Chocolat",
-      description: "Coeur coulant, glace pistache",
-      price: "11€",
-    },
-    {
-      name: "Profiteroles",
-      description: "Glace vanille et sauce chocolat chaud",
-      price: "11€",
+      name: "Jus Portugais Variés",
+      description: "Jus de fruits naturels importés du Portugal",
+      price: "2,50€",
     },
   ];
 
-  const wines = [
+  const cocktails = [
     {
-      name: "Château Margaux 2015",
-      description: "Bordeaux, France",
-      price: "120€",
+      name: "Caipirinha",
+      description: "Cocktail brésilien traditionnel à la cachaça et citron vert",
+      price: "6€",
     },
     {
-      name: "Chablis Premier Cru",
-      description: "Bourgogne, France",
-      price: "65€",
-    },
-    {
-      name: "Champagne Veuve Clicquot",
-      description: "Reims, France",
-      price: "95€",
-    },
-    {
-      name: "Côtes du Rhône Villages",
-      description: "Vallée du Rhône, France",
-      price: "45€",
+      name: "Caipirão",
+      description: "Caipirinha au rhum, citron vert et sucre de canne",
+      price: "6€",
     },
   ];
 
@@ -166,14 +136,14 @@ export default function MenuPage() {
         </div>
       </section>
 
-      {/* Desserts */}
+      {/* Drinks */}
       <section className="mb-12">
         <div className="mb-6 flex items-center gap-3">
-          <Coffee className="h-6 w-6 text-restaurant-burgundy" />
-          <h2 className="font-serif text-3xl font-bold">Desserts</h2>
+          <Wine className="h-6 w-6 text-restaurant-burgundy" />
+          <h2 className="font-serif text-3xl font-bold">Boissons</h2>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
-          {desserts.map((item, index) => (
+          {drinks.map((item, index) => (
             <Card key={index}>
               <CardHeader>
                 <div className="flex items-start justify-between">
@@ -196,14 +166,14 @@ export default function MenuPage() {
         </div>
       </section>
 
-      {/* Wine List */}
+      {/* Cocktails */}
       <section className="mb-12">
         <div className="mb-6 flex items-center gap-3">
-          <Wine className="h-6 w-6 text-restaurant-burgundy" />
-          <h2 className="font-serif text-3xl font-bold">Carte des Vins</h2>
+          <Coffee className="h-6 w-6 text-restaurant-burgundy" />
+          <h2 className="font-serif text-3xl font-bold">Cocktails</h2>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
-          {wines.map((item, index) => (
+          {cocktails.map((item, index) => (
             <Card key={index}>
               <CardHeader>
                 <div className="flex items-start justify-between">
