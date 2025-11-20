@@ -52,19 +52,32 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        restaurant: {
-          burgundy: '#8B0000',
-          gold: '#D4AF37',
-          cream: '#F5F5DC',
-          charcoal: '#333333',
-          olive: '#556B2F',
-          orange: '#CC5500',
+        // Love Theme Colors
+        love: {
+          rose: {
+            pastel: '#FFB3BA',
+            vivid: '#FF6B9D',
+          },
+          lavender: '#C7CEEA',
+          peach: '#FFC9B9',
+          cream: '#FFF5F0',
+          coral: '#FF8B94',
+          success: '#95E1D3',
+          warning: '#FFD93D',
         },
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: "1rem",
+        md: "0.75rem",
+        sm: "0.5rem",
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Outfit', 'Inter', 'sans-serif'],
+      },
+      boxShadow: {
+        love: '0 4px 20px rgba(255, 107, 157, 0.15)',
+        card: '0 2px 12px rgba(255, 179, 186, 0.12)',
       },
       keyframes: {
         "accordion-down": {
@@ -75,10 +88,21 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        'heart-pop': {
+          '0%': { transform: 'scale(0)', opacity: '0' },
+          '50%': { transform: 'scale(1.2)', opacity: '1' },
+          '100%': { transform: 'scale(1) translateY(-50px)', opacity: '0' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        float: "float 3s ease-in-out infinite",
+        "heart-pop": "heart-pop 1s ease-out forwards",
       },
     },
   },
