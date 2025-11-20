@@ -11,27 +11,12 @@ function SuccessPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const reservationNumber = searchParams.get('number');
-  const [countdown, setCountdown] = useState(10);
 
   useEffect(() => {
     if (!reservationNumber) {
       router.push('/reservation');
       return;
     }
-
-    // Countdown to redirect to home
-    const interval = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          router.push('/');
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
   }, [reservationNumber, router]);
 
   if (!reservationNumber) {
@@ -74,10 +59,6 @@ function SuccessPageContent() {
             <div className="flex items-center justify-center gap-2 text-muted-foreground">
               <Mail className="h-5 w-5" />
               <span>Un email de confirmation a été envoyé à votre adresse</span>
-            </div>
-            <div className="flex items-center justify-center gap-2 text-muted-foreground">
-              <Phone className="h-5 w-5" />
-              <span>Vous recevrez également une confirmation par SMS</span>
             </div>
           </div>
 
@@ -122,11 +103,6 @@ function SuccessPageContent() {
               </Button>
             </Link>
           </div>
-
-          {/* Auto-redirect notice */}
-          <p className="text-center text-sm text-muted-foreground">
-            Redirection automatique dans {countdown} secondes...
-          </p>
         </CardContent>
       </Card>
 

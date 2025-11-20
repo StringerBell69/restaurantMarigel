@@ -56,7 +56,7 @@ export function getOperatingHours(date: Date): { open: string; close: string } |
 
 /**
  * Generate available time slots for a given date
- * Slots are every hour within operating hours
+ * Slots are every 30 minutes within operating hours
  */
 export function generateTimeSlots(date: Date): string[] {
   const hours = getOperatingHours(date);
@@ -66,10 +66,15 @@ export function generateTimeSlots(date: Date): string[] {
   const [openHour] = hours.open.split(':').map(Number);
   const [closeHour] = hours.close.split(':').map(Number);
 
-  // Generate slots every hour
+  // Generate slots every 30 minutes
   // Stop 2 hours before closing to allow for dinner duration
-  for (let hour = openHour; hour <= closeHour - 2; hour++) {
+  for (let hour = openHour; hour < closeHour - 2; hour++) {
     slots.push(`${hour.toString().padStart(2, '0')}:00`);
+    slots.push(`${hour.toString().padStart(2, '0')}:30`);
+  }
+  // Add the last hour's slots if within range
+  if (closeHour - 2 >= openHour) {
+    slots.push(`${(closeHour - 2).toString().padStart(2, '0')}:00`);
   }
 
   return slots;

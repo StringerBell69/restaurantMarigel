@@ -48,7 +48,6 @@ export async function POST(request: NextRequest) {
     console.log('='.repeat(60));
     console.log(`Destinataire: ${firstName} ${lastName}`);
     console.log(`Email: ${email}`);
-    if (phone) console.log(`Téléphone: ${phone}`);
     console.log(`Code OTP: ${otpCode}`);
     console.log(`Expire dans: 10 minutes`);
     console.log('='.repeat(60));
@@ -65,19 +64,8 @@ export async function POST(request: NextRequest) {
     } catch (emailError) {
       console.error('❌ Erreur lors de l\'envoi de l\'email:', emailError);
       // Continue anyway - the OTP is stored in DB and visible in console for dev
-      // In production, you might want to return an error here
       console.warn('⚠️ L\'OTP a été généré mais l\'email n\'a pas pu être envoyé');
     }
-
-    // TODO: Add SMS sending when Twilio is configured
-    // if (phone && process.env.TWILIO_ENABLED === 'true') {
-    //   await sendOTPSMS({ phone, otpCode });
-    // }
-
-    // TODO: Add WhatsApp sending when WhatsApp Business API is configured
-    // if (phone && process.env.WHATSAPP_ENABLED === 'true') {
-    //   await sendOTPWhatsApp({ phone, firstName, otpCode });
-    // }
 
     return NextResponse.json({
       success: true,

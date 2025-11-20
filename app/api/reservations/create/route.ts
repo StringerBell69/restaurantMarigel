@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
     } = body;
 
     // Validate required fields
-    if (!date || !time || !guests || !tableId || !firstName || !lastName || !email || !phone) {
+    if (!date || !time || !guests || !tableId || !firstName || !email || !phone) {
       return NextResponse.json(
         { error: 'Tous les champs requis doivent être remplis' },
         { status: 400 }
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
       customer = existingByEmail[0];
       const [updated] = await updateCustomer(customer.id, {
         firstName,
-        lastName,
+        lastName: firstName, // Use firstName as lastName
         phone,
       });
       customer = updated;
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
       // Create new customer
       const [newCustomer] = await createCustomer({
         firstName,
-        lastName,
+        lastName: firstName, // Use firstName as lastName
         email,
         phone,
       });
