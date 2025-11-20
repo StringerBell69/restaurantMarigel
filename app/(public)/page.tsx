@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calendar, Clock, Users, Star, Award, Heart } from "lucide-react";
+import { Calendar, Clock, Users, Star, Award, Heart, PartyPopper } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -117,24 +117,53 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="container px-4 py-16">
-        <div className="mx-auto max-w-4xl rounded-2xl bg-gradient-to-r from-restaurant-burgundy to-restaurant-burgundy/90 p-12 text-center text-white">
-          <h2 className="mb-4 font-serif text-3xl font-bold md:text-4xl">
-            Prêt à Dîner avec Nous?
-          </h2>
-          <p className="mb-8 text-lg text-white/90">
-            Réservez votre table maintenant et savourez les vraies saveurs du Portugal
-          </p>
-          <Link href="/reservation">
-            <Button
-              size="lg"
-              className="bg-white text-restaurant-burgundy hover:bg-white/90"
-            >
-              <Calendar className="mr-2 h-5 w-5" />
-              Réservez Votre Table
-            </Button>
-          </Link>
+      {/* Events Section */}
+      <section className="border-t py-16">
+        <div className="container px-4">
+          <div className="mx-auto max-w-5xl">
+            <div className="grid gap-8 md:grid-cols-2">
+              {/* Regular Reservation */}
+              <Card className="border-2 hover:border-restaurant-burgundy/50 transition-all">
+                <CardContent className="flex flex-col items-center p-8 text-center">
+                  <Calendar className="mb-4 h-12 w-12 text-restaurant-burgundy" />
+                  <h3 className="mb-2 font-serif text-2xl font-bold">Réservation de Table</h3>
+                  <p className="mb-6 text-muted-foreground">
+                    Réservez votre table pour 2 à 6 personnes et savourez nos plats portugais authentiques
+                  </p>
+                  <Link href="/reservation" className="w-full">
+                    <Button
+                      size="lg"
+                      className="w-full bg-restaurant-burgundy hover:bg-restaurant-burgundy/90"
+                    >
+                      <Calendar className="mr-2 h-5 w-5" />
+                      Réserver une Table
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+
+              {/* Private Events */}
+              <Card className="border-2 border-restaurant-burgundy/30 hover:border-restaurant-burgundy transition-all bg-gradient-to-br from-restaurant-burgundy/5 to-restaurant-burgundy/10">
+                <CardContent className="flex flex-col items-center p-8 text-center">
+                  <PartyPopper className="mb-4 h-12 w-12 text-restaurant-burgundy" />
+                  <h3 className="mb-2 font-serif text-2xl font-bold">Événements Privés</h3>
+                  <p className="mb-6 text-muted-foreground">
+                    Privatisez le restaurant complet pour vos événements spéciaux (15-38 personnes)
+                  </p>
+                  <Link href="/events" className="w-full">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="w-full border-restaurant-burgundy text-restaurant-burgundy hover:bg-restaurant-burgundy hover:text-white"
+                    >
+                      <PartyPopper className="mr-2 h-5 w-5" />
+                      Privatiser le Restaurant
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -153,9 +182,9 @@ export default function HomePage() {
             <div className="text-center">
               <h3 className="mb-2 font-semibold">Horaires</h3>
               <p className="text-sm text-muted-foreground">
-                Déjeuner: 11h00 - 15h00
-                <br />
-                Dîner: 18h00 - 23h00
+                Mar, Jeu, Ven, Sam: 11h00 - 22h00<br />
+                Dimanche: 12h00 - 17h00<br />
+                Fermé lundi et mercredi
               </p>
             </div>
 
