@@ -82,10 +82,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: 'Code de vérification envoyé avec succès',
-      // For development only - remove in production
-      devNote: process.env.NODE_ENV === 'development'
-        ? `Code OTP: ${otpCode} (visible uniquement en développement)`
-        : undefined,
     });
 
   } catch (error) {
