@@ -69,9 +69,9 @@ export function Footer() {
           <div>
             <h4 className="mb-4 text-sm font-semibold">Horaires</h4>
             <div className="mb-4 space-y-1 text-sm text-muted-foreground">
-              <p>Déjeuner: 11h00 - 15h00</p>
-              <p>Dîner: 18h00 - 23h00</p>
-              <p className="mt-2 text-xs">Fermé le lundi</p>
+              <p>Mar, Jeu, Ven, Sam: 11h00 - 22h00</p>
+              <p>Dimanche: 12h00 - 17h00</p>
+              <p className="mt-2 text-xs">Fermé lundi et mercredi</p>
             </div>
             <div className="flex gap-4">
               <a href="#" className="text-muted-foreground hover:text-restaurant-burgundy">

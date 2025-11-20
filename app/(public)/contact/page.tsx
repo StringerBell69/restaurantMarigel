@@ -62,7 +62,7 @@ export default function ContactPage() {
               <h3 className="mb-2 font-semibold">Téléphone</h3>
               <p className="text-sm text-muted-foreground">
                 0753454916<br />
-                (Lun-Sam 10h-22h)
+                (Mar-Sam, Dim)
               </p>
             </CardContent>
           </Card>
@@ -88,9 +88,9 @@ export default function ContactPage() {
               </div>
               <h3 className="mb-2 font-semibold">Horaires</h3>
               <p className="text-sm text-muted-foreground">
-                Déjeuner: 11h00 - 15h00<br />
-                Dîner: 18h00 - 23h00<br />
-                Fermé le lundi
+                Mar, Jeu, Ven, Sam: 11h00 - 22h00<br />
+                Dimanche: 12h00 - 17h00<br />
+                Fermé lundi et mercredi
               </p>
             </CardContent>
           </Card>

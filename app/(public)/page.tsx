@@ -153,9 +153,9 @@ export default function HomePage() {
             <div className="text-center">
               <h3 className="mb-2 font-semibold">Horaires</h3>
               <p className="text-sm text-muted-foreground">
-                Déjeuner: 11h00 - 15h00
-                <br />
-                Dîner: 18h00 - 23h00
+                Mar, Jeu, Ven, Sam: 11h00 - 22h00<br />
+                Dimanche: 12h00 - 17h00<br />
+                Fermé lundi et mercredi
               </p>
             </div>
 
