@@ -44,11 +44,11 @@ function LoginForm() {
 
       if (error) throw error;
 
-      toast.success("Welcome back!");
+      toast.success("Bon retour !");
       router.push("/admin/dashboard");
       router.refresh();
     } catch (error: any) {
-      toast.error(error.message || "Failed to sign in");
+      toast.error(error.message || "Échec de la connexion");
     } finally {
       setLoading(false);
     }
@@ -78,7 +78,7 @@ function LoginForm() {
 
       if (error) throw error;
     } catch (error: any) {
-      toast.error(error.message || "Failed to sign in with Google");
+      toast.error(error.message || "Échec de la connexion avec Google");
     }
   };
 
@@ -88,9 +88,9 @@ function LoginForm() {
         <div className="mb-4 font-serif text-3xl font-bold text-restaurant-burgundy">
           SABORES DE PORTUGAL
         </div>
-        <CardTitle>Admin Login</CardTitle>
+        <CardTitle>Connexion Admin</CardTitle>
         <CardDescription>
-          Sign in to access the restaurant management system
+          Connectez-vous pour accéder au système de gestion du restaurant
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -108,7 +108,7 @@ function LoginForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">Mot de passe</Label>
             <Input
               id="password"
               type="password"
@@ -123,7 +123,7 @@ function LoginForm() {
             className="w-full bg-restaurant-burgundy hover:bg-restaurant-burgundy/90"
             disabled={loading}
           >
-            {loading ? "Signing in..." : "Sign In"}
+            {loading ? "Connexion..." : "Se connecter"}
           </Button>
         </form>
 
@@ -133,7 +133,7 @@ function LoginForm() {
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background px-2 text-muted-foreground">
-              Or continue with
+              Ou continuer avec
             </span>
           </div>
         </div>
@@ -162,12 +162,12 @@ function LoginForm() {
               fill="#EA4335"
             />
           </svg>
-          Sign in with Google
+          Se connecter avec Google
         </Button>
 
         <p className="mt-6 text-center text-xs text-muted-foreground">
-          For admin access only. Customer reservations can be managed through
-          the public website.
+          Accès administrateur uniquement. Les réservations clients peuvent être gérées via
+          le site public.
         </p>
       </CardContent>
     </Card>

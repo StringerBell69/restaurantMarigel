@@ -88,6 +88,18 @@ export async function ReservationsTable({
     return variants[status] || 'outline';
   };
 
+  const getStatusLabel = (status: string) => {
+    const labels: Record<string, string> = {
+      pending: 'En attente',
+      confirmed: 'Confirmé',
+      checked_in: 'Arrivé',
+      completed: 'Terminé',
+      cancelled: 'Annulé',
+      no_show: 'Absent',
+    };
+    return labels[status] || status;
+  };
+
   return (
     <Card>
       <Table>
@@ -136,8 +148,11 @@ export async function ReservationsTable({
                     : 'Non assignée'}
                 </TableCell>
                 <TableCell>
-                  <Badge variant={getStatusBadge(reservation.status || 'pending')}>
-                    {reservation.status || 'pending'}
+                  <Badge
+                    variant={getStatusBadge(reservation.status || 'pending')}
+                    className={reservation.status === 'checked_in' ? 'bg-green-600' : ''}
+                  >
+                    {getStatusLabel(reservation.status || 'pending')}
                   </Badge>
                 </TableCell>
                 <TableCell>

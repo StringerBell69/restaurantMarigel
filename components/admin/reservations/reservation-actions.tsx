@@ -20,7 +20,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { MoreHorizontal, CheckCircle, XCircle, Eye, Edit } from 'lucide-react';
+import { MoreHorizontal, CheckCircle, XCircle, Eye, Edit, UserCheck } from 'lucide-react';
 
 interface ReservationActionsProps {
   reservation: {
@@ -72,40 +72,72 @@ export function ReservationActions({ reservation }: ReservationActionsProps) {
     }
   };
 
+  const handleMarkArrived = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`/api/admin/reservations/${reservation.id}/arrive`, {
+        method: 'PATCH',
+      });
+
+      if (response.ok) {
+        router.refresh();
+      }
+    } catch (error) {
+      console.error('Failed to mark as arrived:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="sm" disabled={isLoading}>
-            <MoreHorizontal className="h-4 w-4" />
+      <div className="flex items-center gap-2">
+        {/* Quick arrival button for confirmed reservations */}
+        {reservation.status === 'confirmed' && (
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={handleMarkArrived}
+            disabled={isLoading}
+            className="text-green-600 border-green-600 hover:bg-green-50 hover:text-green-700"
+          >
+            <UserCheck className="h-4 w-4 mr-1" />
+            Arrivé
           </Button>
-        </DropdownMenuTrigger>
+        )}
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="sm" disabled={isLoading}>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={() => router.push(`/admin/reservations/${reservation.id}`)}>
             <Eye className="mr-2 h-4 w-4" />
-            View Details
+            Voir Détails
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => router.push(`/admin/reservations/${reservation.id}/edit`)}>
             <Edit className="mr-2 h-4 w-4" />
-            Edit
+            Modifier
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           {reservation.status === 'pending' && (
             <DropdownMenuItem onClick={() => handleStatusChange('confirmed')}>
               <CheckCircle className="mr-2 h-4 w-4" />
-              Confirm
+              Confirmer
             </DropdownMenuItem>
           )}
           {reservation.status === 'confirmed' && (
             <DropdownMenuItem onClick={() => handleStatusChange('checked_in')}>
               <CheckCircle className="mr-2 h-4 w-4" />
-              Check In
+              Enregistrer
             </DropdownMenuItem>
           )}
           {reservation.status === 'checked_in' && (
             <DropdownMenuItem onClick={() => handleStatusChange('completed')}>
               <CheckCircle className="mr-2 h-4 w-4" />
-              Complete
+              Terminer
             </DropdownMenuItem>
           )}
           {reservation.status !== 'cancelled' && reservation.status !== 'completed' && (
@@ -116,29 +148,30 @@ export function ReservationActions({ reservation }: ReservationActionsProps) {
                 className="text-red-600"
               >
                 <XCircle className="mr-2 h-4 w-4" />
-                Cancel
+                Annuler
               </DropdownMenuItem>
             </>
           )}
         </DropdownMenuContent>
       </DropdownMenu>
+      </div>
 
       <AlertDialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Cancel Reservation</AlertDialogTitle>
+            <AlertDialogTitle>Annuler la Réservation</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to cancel reservation #{reservation.reservationNumber}?
-              This action cannot be undone.
+              Êtes-vous sûr de vouloir annuler la réservation #{reservation.reservationNumber}?
+              Cette action ne peut pas être annulée.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>No, keep it</AlertDialogCancel>
+            <AlertDialogCancel>Non, garder</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleCancel}
               className="bg-red-600 hover:bg-red-700"
             >
-              Yes, cancel reservation
+              Oui, annuler la réservation
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

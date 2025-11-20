@@ -10,6 +10,7 @@ import {
   Settings,
   LogOut,
   UtensilsCrossed,
+  XCircle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -18,12 +19,12 @@ import { useRouter } from 'next/navigation';
 
 const navItems = [
   {
-    title: 'Dashboard',
+    title: 'Tableau de Bord',
     href: '/admin/dashboard',
     icon: LayoutDashboard,
   },
   {
-    title: 'Reservations',
+    title: 'Réservations',
     href: '/admin/reservations',
     icon: Calendar,
   },
@@ -33,12 +34,17 @@ const navItems = [
     icon: Table,
   },
   {
-    title: 'Customers',
+    title: 'Clients',
     href: '/admin/customers',
     icon: Users,
   },
   {
-    title: 'Settings',
+    title: 'Fermetures',
+    href: '/admin/closures',
+    icon: XCircle,
+  },
+  {
+    title: 'Paramètres',
     href: '/admin/settings',
     icon: Settings,
   },
@@ -87,7 +93,7 @@ export function AdminNav() {
           onClick={handleSignOut}
         >
           <LogOut className="mr-3 h-5 w-5" />
-          Sign Out
+          Déconnexion
         </Button>
       </div>
     </div>

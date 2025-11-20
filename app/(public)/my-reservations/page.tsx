@@ -23,34 +23,30 @@ export default function MyReservationsPage() {
   const [email, setEmail] = useState("");
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [searched, setSearched] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  // Mock data for demonstration
-  const mockReservations: Reservation[] = [
-    {
-      id: "1",
-      date: "2025-11-25",
-      time: "19:00",
-      guests: 4,
-      tableName: "Table 5",
-      status: "confirmed",
-      reservationNumber: "RES-2025-001",
-    },
-    {
-      id: "2",
-      date: "2025-12-15",
-      time: "20:00",
-      guests: 2,
-      tableName: "Table 2",
-      status: "pending",
-      reservationNumber: "RES-2025-002",
-    },
-  ];
-
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In production, this would call an API to fetch reservations
-    setReservations(mockReservations);
-    setSearched(true);
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        `/api/reservations/search?firstName=${encodeURIComponent(firstName)}&email=${encodeURIComponent(email)}`
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erreur lors de la recherche');
+      }
+
+      setReservations(data.reservations || []);
+      setSearched(true);
+    } catch (error: any) {
+      alert(error.message || 'Erreur lors de la recherche des réservations');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCancelReservation = (id: string) => {
@@ -134,10 +130,11 @@ export default function MyReservationsPage() {
                 <Button
                   type="submit"
                   size="lg"
+                  disabled={loading}
                   className="w-full bg-restaurant-burgundy hover:bg-restaurant-burgundy/90"
                 >
                   <Search className="mr-2 h-5 w-5" />
-                  Rechercher
+                  {loading ? 'Recherche...' : 'Rechercher'}
                 </Button>
               </form>
             </CardContent>
