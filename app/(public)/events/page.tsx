@@ -19,7 +19,7 @@ export default function EventsPage() {
     email: "",
     phone: "",
     eventType: "",
-    specialRequests: "",
+    // specialRequests: "", // Décommenter pour activer les demandes spéciales
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -53,7 +53,7 @@ export default function EventsPage() {
         email: "",
         phone: "",
         eventType: "",
-        specialRequests: "",
+        // specialRequests: "", // Décommenter pour activer les demandes spéciales
       });
     } catch (error) {
       toast.error("Une erreur s'est produite. Veuillez réessayer.");
@@ -285,8 +285,8 @@ export default function EventsPage() {
                   </select>
                 </div>
 
-                {/* Special Requests */}
-                <div className="space-y-2">
+                {/* Special Requests - Décommenter pour activer */}
+                {/* <div className="space-y-2">
                   <Label htmlFor="specialRequests">Demandes spéciales (optionnel)</Label>
                   <textarea
                     id="specialRequests"
@@ -296,7 +296,7 @@ export default function EventsPage() {
                     onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
                     className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   />
-                </div>
+                </div> */}
 
                 <Button
                   type="submit"
@@ -331,10 +331,9 @@ export default function EventsPage() {
                 <h3 className="mb-4 font-semibold">Informations Importantes</h3>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>✓ La privatisation complète du restaurant réserve toutes nos tables</li>
-                  <li>✓ Menu personnalisable selon vos préférences et budget</li>
                   <li>✓ Possibilité d&apos;apporter votre décoration</li>
                   <li>✓ Service dédié pour votre événement</li>
-                  <li>✓ Un acompte de 30% sera demandé pour confirmer la réservation</li>
+                  {/* <li>✓ Un acompte de 30% sera demandé pour confirmer la réservation</li> */}
                   <li>✓ Annulation possible jusqu&apos;à 7 jours avant l&apos;événement</li>
                 </ul>
               </CardContent>
