@@ -34,13 +34,14 @@ export async function GET(request: NextRequest) {
     const partySize = parseInt(guests);
 
     // Get all active tables that can accommodate the party size
+    // Also get tables with capacity = partySize - 1 (can add an extra chair)
     const allTables = await db
       .select()
       .from(restaurantTables)
       .where(
         and(
           eq(restaurantTables.isActive, true),
-          gte(restaurantTables.capacityMax, partySize)
+          gte(restaurantTables.capacityMax, partySize - 1) // Include tables 1 person short
         )
       )
       .orderBy(restaurantTables.tableNumber);
@@ -128,16 +129,24 @@ export async function GET(request: NextRequest) {
     });
 
     // Format the response
-    const formattedTables = availableTables.map((table) => ({
-      id: table.id,
-      name: `Table ${table.tableNumber}`,
-      tableNumber: table.tableNumber,
-      capacity: table.capacityMax,
-      capacityMin: table.capacityMin,
-      tableType: table.tableType,
-      features: table.features,
-      available: true,
-    }));
+    const formattedTables = availableTables.map((table) => {
+      const needsExtraChair = table.capacityMax === partySize - 1;
+
+      return {
+        id: table.id,
+        name: `Table ${table.tableNumber}`,
+        tableNumber: table.tableNumber,
+        capacity: table.capacityMax,
+        capacityMin: table.capacityMin,
+        tableType: table.tableType,
+        features: table.features,
+        available: true,
+        needsExtraChair,
+        comfortNote: needsExtraChair
+          ? "Une chaise supplémentaire sera ajoutée. Le confort peut être légèrement réduit."
+          : null,
+      };
+    });
 
     return NextResponse.json({
       success: true,

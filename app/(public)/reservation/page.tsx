@@ -19,6 +19,8 @@ interface Table {
   location?: string;
   features?: string[];
   available: boolean;
+  needsExtraChair?: boolean;
+  comfortNote?: string | null;
 }
 
 export default function ReservationPage() {
@@ -43,7 +45,7 @@ export default function ReservationPage() {
   const [availableTables, setAvailableTables] = useState<Table[]>([]);
   const [otpSent, setOtpSent] = useState(false);
   const [otpCode, setOtpCode] = useState("");
-  const [generatedOtp, setGeneratedOtp] = useState("");
+  const [canResendOTP, setCanResendOTP] = useState(false);
 
   // Step 1: Check availability
   const handleCheckAvailability = async (e: React.FormEvent) => {
@@ -110,16 +112,14 @@ export default function ReservationPage() {
         throw new Error(data.error || 'Erreur lors de l\'envoi du code');
       }
 
-      // Store the generated OTP for dev purposes
-      if (data.devNote) {
-        const match = data.devNote.match(/Code OTP: (\d{6})/);
-        if (match) {
-          setGeneratedOtp(match[1]);
-          console.log('🔐 Code OTP généré:', match[1]);
-        }
-      }
-
       setOtpSent(true);
+      setCanResendOTP(false);
+
+      // Enable resend after 30 seconds
+      setTimeout(() => {
+        setCanResendOTP(true);
+      }, 30000);
+
       toast.success('Code de vérification envoyé !');
     } catch (error: any) {
       toast.error(error.message || 'Erreur lors de l\'envoi du code');
@@ -449,6 +449,11 @@ export default function ReservationPage() {
                             Capacité: {table.capacity} personnes
                             {table.location && ` • ${table.location}`}
                           </div>
+                          {table.needsExtraChair && table.comfortNote && (
+                            <div className="mt-1 text-xs text-orange-600">
+                              ⚠️ {table.comfortNote}
+                            </div>
+                          )}
                         </div>
                       </div>
                       <ArrowRight className="h-5 w-5" />
@@ -567,14 +572,21 @@ export default function ReservationPage() {
                     value={otpCode}
                     onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ''))}
                   />
-                  <p className="text-xs text-muted-foreground">
-                    Un code a été envoyé à votre email
-                    {generatedOtp && (
-                      <span className="block mt-1 text-restaurant-burgundy font-medium">
-                        📧 Code de développement: {generatedOtp}
-                      </span>
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                    <p>Un code a été envoyé à votre email</p>
+                    {canResendOTP && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setOtpCode("");
+                          setOtpSent(false);
+                        }}
+                        className="text-restaurant-burgundy hover:underline font-medium"
+                      >
+                        Renvoyer le code
+                      </button>
                     )}
-                  </p>
+                  </div>
                 </div>
                 <Button
                   className="w-full bg-restaurant-burgundy hover:bg-restaurant-burgundy/90"

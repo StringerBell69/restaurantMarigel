@@ -38,10 +38,28 @@ export default function EventsPage() {
     setLoading(true);
 
     try {
-      // Simuler l'envoi de la demande
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const response = await fetch('/api/events/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          date: formData.date,
+          time: formData.time,
+          guests: formData.guests,
+          duration: formData.duration,
+          firstName: formData.firstName,
+          email: formData.email,
+          phone: formData.phone,
+          eventType: formData.eventType,
+        }),
+      });
 
-      toast.success("Votre demande de privatisation a été envoyée ! Nous vous contacterons sous 24h.");
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erreur lors de la création de l\'événement');
+      }
+
+      toast.success("Votre demande de privatisation a été envoyée ! Nous vous contacterons sous 24h. Numéro: " + data.reservation.reservationNumber);
 
       // Reset form
       setFormData({
@@ -55,8 +73,8 @@ export default function EventsPage() {
         eventType: "",
         // specialRequests: "", // Décommenter pour activer les demandes spéciales
       });
-    } catch (error) {
-      toast.error("Une erreur s'est produite. Veuillez réessayer.");
+    } catch (error: any) {
+      toast.error(error.message || "Une erreur s'est produite. Veuillez réessayer.");
     } finally {
       setLoading(false);
     }
