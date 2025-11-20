@@ -10,11 +10,11 @@ export default function HomePage() {
       <section className="relative flex min-h-[600px] items-center justify-center bg-gradient-to-br from-restaurant-burgundy to-restaurant-burgundy/80 px-4 py-20 text-white">
         <div className="container max-w-4xl text-center">
           <h1 className="mb-6 font-serif text-5xl font-bold leading-tight md:text-7xl">
-            Découvrez l&apos;Excellence Gastronomique
+            Les Vraies Saveurs du Portugal
           </h1>
           <p className="mb-8 text-lg text-white/90 md:text-xl">
-            Savourez une cuisine exceptionnelle préparée avec passion et servie avec élégance.
-            Réservez votre table pour une expérience culinaire inoubliable.
+            Découvrez une cuisine portugaise authentique préparée avec passion.
+            Des recettes traditionnelles pour une expérience culinaire inoubliable.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link href="/reservation">
@@ -46,9 +46,9 @@ export default function HomePage() {
               <div className="mb-4 rounded-full bg-restaurant-burgundy/10 p-3">
                 <Star className="h-8 w-8 text-restaurant-burgundy" />
               </div>
-              <h3 className="mb-2 text-xl font-semibold">Qualité Michelin</h3>
+              <h3 className="mb-2 text-xl font-semibold">Cuisine Authentique Portugaise</h3>
               <p className="text-muted-foreground">
-                Une cuisine primée préparée par notre équipe culinaire experte
+                Des plats traditionnels préparés avec passion et savoir-faire
               </p>
             </CardContent>
           </Card>
@@ -58,9 +58,9 @@ export default function HomePage() {
               <div className="mb-4 rounded-full bg-restaurant-burgundy/10 p-3">
                 <Heart className="h-8 w-8 text-restaurant-burgundy" />
               </div>
-              <h3 className="mb-2 text-xl font-semibold">Service Exceptionnel</h3>
+              <h3 className="mb-2 text-xl font-semibold">Accueil Chaleureux</h3>
               <p className="text-muted-foreground">
-                Une équipe attentive dédiée à rendre votre expérience parfaite
+                Un service familial et convivial pour vous sentir comme à la maison
               </p>
             </CardContent>
           </Card>
@@ -70,9 +70,9 @@ export default function HomePage() {
               <div className="mb-4 rounded-full bg-restaurant-burgundy/10 p-3">
                 <Award className="h-8 w-8 text-restaurant-burgundy" />
               </div>
-              <h3 className="mb-2 text-xl font-semibold">Ambiance Élégante</h3>
+              <h3 className="mb-2 text-xl font-semibold">Saveurs du Portugal</h3>
               <p className="text-muted-foreground">
-                Un cadre magnifique parfait pour toute occasion spéciale
+                Découvrez les vraies recettes portugaises dans une ambiance authentique
               </p>
             </CardContent>
           </Card>
@@ -84,11 +84,11 @@ export default function HomePage() {
         <div className="container px-4">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="mb-4 font-serif text-3xl font-bold md:text-4xl">
-              Pourquoi Choisir Marigel?
+              Pourquoi Choisir SABORES DE PORTUGAL?
             </h2>
             <p className="mb-12 text-lg text-muted-foreground">
-              Nous combinons les techniques culinaires traditionnelles avec l&apos;innovation moderne
-              pour créer des expériences gastronomiques mémorables
+              Une cuisine familiale portugaise authentique, préparée avec amour selon les
+              recettes traditionnelles pour des saveurs qui vous transportent au Portugal
             </p>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -119,7 +119,7 @@ export default function HomePage() {
             Prêt à Dîner avec Nous?
           </h2>
           <p className="mb-8 text-lg text-white/90">
-            Réservez votre table maintenant et découvrez l&apos;excellence culinaire
+            Réservez votre table maintenant et savourez les vraies saveurs du Portugal
           </p>
           <Link href="/reservation">
             <Button
@@ -140,8 +140,8 @@ export default function HomePage() {
             <div className="text-center">
               <h3 className="mb-2 font-semibold">Emplacement</h3>
               <p className="text-sm text-muted-foreground">
-                123 Rue de la Gastronomie<br />
-                Centre-ville, Paris 75001
+                26b rue Joseph Longarini<br />
+                69700 Givors
               </p>
             </div>
 
@@ -156,7 +156,7 @@ export default function HomePage() {
             <div className="text-center">
               <h3 className="mb-2 font-semibold">Contact</h3>
               <p className="text-sm text-muted-foreground">
-                Téléphone: +33 1 23 45 67 89<br />
+                Téléphone: 0753454916<br />
                 Email: info@sumbo.fr
               </p>
             </div>
