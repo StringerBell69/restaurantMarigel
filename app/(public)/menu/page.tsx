@@ -46,16 +46,114 @@ export default function MenuPage() {
     },
   ];
 
-  const drinks = [
+  const pichetVin = [
     {
-      name: "Vins Portugais",
-      description: "Sélection de vins rouges, blancs et verts portugais",
+      name: "Pichet de Vin Rouge",
+      description: "Vin rouge portugais de la maison",
       price: "15€",
-      badge: "Bouteille",
     },
     {
-      name: "Jus Portugais Variés",
-      description: "Jus de fruits naturels importés du Portugal",
+      name: "Pichet de Vin Vert",
+      description: "Vinho Verde frais et léger",
+      price: "15€",
+    },
+    {
+      name: "Pichet de Rosé",
+      description: "Rosé portugais rafraîchissant",
+      price: "15€",
+    },
+  ];
+
+  const bouteillesVin = [
+    {
+      name: "Ponte de Lima Vin Vert Rouge",
+      description: "Vin vert rouge de la région de Ponte de Lima",
+      price: "15€",
+    },
+    {
+      name: "Esporão Alentejo Tinto Maduro",
+      description: "Vin rouge de l'Alentejo, mûr et complexe",
+      price: "15€",
+    },
+    {
+      name: "Caiado Adega Mayor Tinto",
+      description: "Vin rouge élégant de l'Alentejo",
+      price: "15€",
+    },
+    {
+      name: "Caiado Adega Mayor Branco",
+      description: "Vin blanc frais de l'Alentejo",
+      price: "15€",
+    },
+    {
+      name: "Rosé Gatão",
+      description: "Rosé portugais classique",
+      price: "15€",
+    },
+    {
+      name: "Rosé Mateus",
+      description: "Le célèbre rosé portugais Mateus",
+      price: "15€",
+    },
+  ];
+
+  const bieres = [
+    {
+      name: "Super Bock",
+      description: "Bière blonde portugaise emblématique",
+      price: "2,50€",
+    },
+    {
+      name: "1664",
+      description: "Bière blonde française premium",
+      price: "2,50€",
+    },
+    {
+      name: "Desperados",
+      description: "Bière aromatisée à la tequila",
+      price: "2,50€",
+    },
+    {
+      name: "Heineken",
+      description: "Bière blonde internationale",
+      price: "2,50€",
+    },
+  ];
+
+  const boissons = [
+    {
+      name: "Coca-Cola",
+      description: "Boisson pétillante classique",
+      price: "2,50€",
+    },
+    {
+      name: "Lipton Ice Tea",
+      description: "Thé glacé rafraîchissant",
+      price: "2,50€",
+    },
+    {
+      name: "Fanta",
+      description: "Soda à l'orange",
+      price: "2,50€",
+    },
+    {
+      name: "Sumol Laranja",
+      description: "Soda portugais à l'orange",
+      price: "2,50€",
+    },
+    {
+      name: "Sumol Ananás",
+      description: "Soda portugais à l'ananas",
+      price: "2,50€",
+    },
+    {
+      name: "Perrier",
+      description: "Eau pétillante naturelle",
+      price: "2,50€",
+    },
+    {
+      name: "Pedras de Limão",
+      description: "Eau gazeuse portugaise au citron",
       price: "2,50€",
     },
   ];
@@ -136,25 +234,87 @@ export default function MenuPage() {
         </div>
       </section>
 
-      {/* Drinks */}
+      {/* Pichets de Vin */}
       <section className="mb-12">
         <div className="mb-6 flex items-center gap-3">
           <Wine className="h-6 w-6 text-restaurant-burgundy" />
-          <h2 className="font-serif text-3xl font-bold">Boissons</h2>
+          <h2 className="font-serif text-3xl font-bold">Pichets de Vin</h2>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
-          {drinks.map((item, index) => (
+          {pichetVin.map((item, index) => (
             <Card key={index}>
               <CardHeader>
                 <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-2">
-                    <CardTitle className="text-xl">{item.name}</CardTitle>
-                    {item.badge && (
-                      <Badge variant="secondary" className="bg-restaurant-burgundy/10 text-restaurant-burgundy">
-                        {item.badge}
-                      </Badge>
-                    )}
-                  </div>
+                  <CardTitle className="text-xl">{item.name}</CardTitle>
+                  <span className="text-lg font-semibold text-restaurant-burgundy">
+                    {item.price}
+                  </span>
+                </div>
+                <CardDescription>{item.description}</CardDescription>
+              </CardHeader>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Bouteilles de Vin */}
+      <section className="mb-12">
+        <div className="mb-6 flex items-center gap-3">
+          <Wine className="h-6 w-6 text-restaurant-burgundy" />
+          <h2 className="font-serif text-3xl font-bold">Bouteilles de Vin</h2>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2">
+          {bouteillesVin.map((item, index) => (
+            <Card key={index}>
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <CardTitle className="text-xl">{item.name}</CardTitle>
+                  <span className="text-lg font-semibold text-restaurant-burgundy">
+                    {item.price}
+                  </span>
+                </div>
+                <CardDescription>{item.description}</CardDescription>
+              </CardHeader>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Bières */}
+      <section className="mb-12">
+        <div className="mb-6 flex items-center gap-3">
+          <Coffee className="h-6 w-6 text-restaurant-burgundy" />
+          <h2 className="font-serif text-3xl font-bold">Bières</h2>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2">
+          {bieres.map((item, index) => (
+            <Card key={index}>
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <CardTitle className="text-xl">{item.name}</CardTitle>
+                  <span className="text-lg font-semibold text-restaurant-burgundy">
+                    {item.price}
+                  </span>
+                </div>
+                <CardDescription>{item.description}</CardDescription>
+              </CardHeader>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Boissons Sans Alcool */}
+      <section className="mb-12">
+        <div className="mb-6 flex items-center gap-3">
+          <Coffee className="h-6 w-6 text-restaurant-burgundy" />
+          <h2 className="font-serif text-3xl font-bold">Boissons Sans Alcool</h2>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2">
+          {boissons.map((item, index) => (
+            <Card key={index}>
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <CardTitle className="text-xl">{item.name}</CardTitle>
                   <span className="text-lg font-semibold text-restaurant-burgundy">
                     {item.price}
                   </span>
