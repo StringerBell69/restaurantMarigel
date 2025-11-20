@@ -49,6 +49,24 @@ export default function ReservationPage() {
   const [canResendOTP, setCanResendOTP] = useState(false);
   const [availableTimeSlots, setAvailableTimeSlots] = useState<string[]>([]);
   const [isDateClosed, setIsDateClosed] = useState(false);
+  const [maxBookingDays, setMaxBookingDays] = useState(60); // Default to 60 days
+
+  // Fetch max booking days setting on mount
+  useEffect(() => {
+    const fetchMaxBookingDays = async () => {
+      try {
+        const response = await fetch('/api/settings/max-booking-days');
+        const data = await response.json();
+        if (data.success && data.maxDays) {
+          setMaxBookingDays(data.maxDays);
+        }
+      } catch (error) {
+        console.error('Failed to fetch max booking days:', error);
+        // Keep default value of 60
+      }
+    };
+    fetchMaxBookingDays();
+  }, []);
 
   // Update available time slots when date changes
   useEffect(() => {
@@ -288,7 +306,7 @@ export default function ReservationPage() {
                   type="date"
                   required
                   min={new Date().toISOString().split("T")[0]}
-                  max={new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]}
+                  max={new Date(Date.now() + maxBookingDays * 24 * 60 * 60 * 1000).toISOString().split("T")[0]}
                   value={formData.date}
                   onChange={(e) =>
                     setFormData({ ...formData, date: e.target.value })
@@ -296,7 +314,7 @@ export default function ReservationPage() {
                   className="w-full"
                 />
                 <p className="text-xs text-muted-foreground">
-                  Nous acceptons les réservations jusqu&apos;à 60 jours à l&apos;avance
+                  Nous acceptons les réservations jusqu&apos;à {maxBookingDays} jours à l&apos;avance
                 </p>
               </div>
 

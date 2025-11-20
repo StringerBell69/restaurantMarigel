@@ -19,12 +19,12 @@ import { useRouter } from 'next/navigation';
 
 const navItems = [
   {
-    title: 'Dashboard',
+    title: 'Tableau de Bord',
     href: '/admin/dashboard',
     icon: LayoutDashboard,
   },
   {
-    title: 'Reservations',
+    title: 'Réservations',
     href: '/admin/reservations',
     icon: Calendar,
   },
@@ -34,7 +34,7 @@ const navItems = [
     icon: Table,
   },
   {
-    title: 'Customers',
+    title: 'Clients',
     href: '/admin/customers',
     icon: Users,
   },
@@ -44,7 +44,7 @@ const navItems = [
     icon: XCircle,
   },
   {
-    title: 'Settings',
+    title: 'Paramètres',
     href: '/admin/settings',
     icon: Settings,
   },
@@ -93,7 +93,7 @@ export function AdminNav() {
           onClick={handleSignOut}
         >
           <LogOut className="mr-3 h-5 w-5" />
-          Sign Out
+          Déconnexion
         </Button>
       </div>
     </div>

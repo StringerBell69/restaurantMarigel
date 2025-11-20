@@ -46,14 +46,14 @@ export function ReservationsFilters() {
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
           <Input
-            placeholder="Search by customer name, email, or phone..."
+            placeholder="Rechercher par nom, email ou téléphone..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="pl-10"
           />
         </div>
         <Button type="submit" variant="outline">
-          Search
+          Rechercher
         </Button>
       </form>
 
@@ -71,30 +71,30 @@ export function ReservationsFilters() {
 
         <div className="flex-1">
           <label className="text-sm font-medium text-gray-700 mb-1 block">
-            Status
+            Statut
           </label>
           <Select
             defaultValue={searchParams.get('status') || 'all'}
             onValueChange={(value) => handleFilterChange('status', value === 'all' ? '' : value)}
           >
             <SelectTrigger>
-              <SelectValue placeholder="All statuses" />
+              <SelectValue placeholder="Tous les statuts" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Statuses</SelectItem>
-              <SelectItem value="pending">Pending</SelectItem>
-              <SelectItem value="confirmed">Confirmed</SelectItem>
-              <SelectItem value="checked_in">Checked In</SelectItem>
-              <SelectItem value="completed">Completed</SelectItem>
-              <SelectItem value="cancelled">Cancelled</SelectItem>
-              <SelectItem value="no_show">No Show</SelectItem>
+              <SelectItem value="all">Tous les statuts</SelectItem>
+              <SelectItem value="pending">En attente</SelectItem>
+              <SelectItem value="confirmed">Confirmé</SelectItem>
+              <SelectItem value="checked_in">Arrivé</SelectItem>
+              <SelectItem value="completed">Terminé</SelectItem>
+              <SelectItem value="cancelled">Annulé</SelectItem>
+              <SelectItem value="no_show">Absent</SelectItem>
             </SelectContent>
           </Select>
         </div>
 
         <Button variant="ghost" onClick={clearFilters}>
           <X className="h-4 w-4 mr-2" />
-          Clear
+          Effacer
         </Button>
       </div>
     </div>
