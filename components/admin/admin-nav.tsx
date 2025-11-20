@@ -58,7 +58,7 @@ export function AdminNav() {
     <div className="flex w-64 flex-col bg-restaurant-burgundy text-white">
       <div className="flex h-16 items-center gap-2 border-b border-white/10 px-6">
         <UtensilsCrossed className="h-6 w-6" />
-        <span className="text-xl font-bold">Marigel Admin</span>
+        <span className="text-xl font-bold">SABORES DE PORTUGAL Admin</span>
       </div>
       <nav className="flex-1 space-y-1 px-3 py-4">
         {navItems.map((item) => {

@@ -13,8 +13,9 @@ export default function HomePage() {
             Les Vraies Saveurs du Portugal
           </h1>
           <p className="mb-8 text-lg text-white/90 md:text-xl">
-            Découvrez une cuisine portugaise authentique préparée avec passion.
-            Des recettes traditionnelles pour une expérience culinaire inoubliable.
+            Savourez une cuisine exceptionnelle préparée avec passion et servie
+            avec élégance. Réservez votre table pour une expérience culinaire
+            inoubliable.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link href="/reservation">
@@ -58,7 +59,9 @@ export default function HomePage() {
               <div className="mb-4 rounded-full bg-restaurant-burgundy/10 p-3">
                 <Heart className="h-8 w-8 text-restaurant-burgundy" />
               </div>
-              <h3 className="mb-2 text-xl font-semibold">Accueil Chaleureux</h3>
+              <h3 className="mb-2 text-xl font-semibold">
+                Service Exceptionnel
+              </h3>
               <p className="text-muted-foreground">
                 Un service familial et convivial pour vous sentir comme à la maison
               </p>
@@ -96,7 +99,8 @@ export default function HomePage() {
                 <Clock className="mb-3 h-8 w-8 text-restaurant-burgundy" />
                 <h3 className="mb-2 font-semibold">Réservations Faciles</h3>
                 <p className="text-sm text-muted-foreground">
-                  Réservez votre table en ligne en quelques minutes avec notre système de réservation avancé
+                  Réservez votre table en ligne en quelques minutes avec notre
+                  système de réservation avancé
                 </p>
               </div>
 
@@ -104,7 +108,8 @@ export default function HomePage() {
                 <Users className="mb-3 h-8 w-8 text-restaurant-burgundy" />
                 <h3 className="mb-2 font-semibold">Événements Privés</h3>
                 <p className="text-sm text-muted-foreground">
-                  Parfait pour les célébrations, les dîners d&apos;affaires et les occasions spéciales
+                  Parfait pour les célébrations, les dîners d&apos;affaires et
+                  les occasions spéciales
                 </p>
               </div>
             </div>
@@ -148,7 +153,8 @@ export default function HomePage() {
             <div className="text-center">
               <h3 className="mb-2 font-semibold">Horaires</h3>
               <p className="text-sm text-muted-foreground">
-                Déjeuner: 11h00 - 15h00<br />
+                Déjeuner: 11h00 - 15h00
+                <br />
                 Dîner: 18h00 - 23h00
               </p>
             </div>
@@ -156,7 +162,8 @@ export default function HomePage() {
             <div className="text-center">
               <h3 className="mb-2 font-semibold">Contact</h3>
               <p className="text-sm text-muted-foreground">
-                Téléphone: 0753454916<br />
+                Téléphone: 07 53 45 49 16
+                <br />
                 Email: info@sumbo.fr
               </p>
             </div>

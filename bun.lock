@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "restaurant-marigel",
+      "name": "restaurant-SABORES DE PORTUGAL",
       "dependencies": {
         "@hookform/resolvers": "^3.3.4",
         "@radix-ui/react-accordion": "^1.1.2",

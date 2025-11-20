@@ -1,4 +1,4 @@
--- Restaurant Marigel - Complete Database Schema
+-- Restaurant SABORES DE PORTUGAL - Complete Database Schema
 -- This SQL file creates all tables, indexes, policies, and functions needed for the restaurant reservation system
 
 -- Enable UUID extension

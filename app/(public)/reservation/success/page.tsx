@@ -137,7 +137,7 @@ function SuccessPageContent() {
           <div className="space-y-2 text-sm">
             <p className="flex items-center gap-2">
               <Phone className="h-4 w-4 text-restaurant-burgundy" />
-              <span>Téléphone: +33 1 23 45 67 89</span>
+              <span>Téléphone: 07 53 45 49 16</span>
             </p>
             <p className="flex items-center gap-2">
               <Mail className="h-4 w-4 text-restaurant-burgundy" />

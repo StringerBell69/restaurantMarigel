@@ -10,10 +10,10 @@ export default function AboutPage() {
       <section className="relative flex min-h-[400px] items-center justify-center bg-gradient-to-br from-restaurant-burgundy to-restaurant-burgundy/80 px-4 py-20 text-white">
         <div className="container max-w-4xl text-center">
           <h1 className="mb-6 font-serif text-5xl font-bold leading-tight md:text-6xl">
-            À Propos de Marigel
+            À Propos de SABORES DE PORTUGAL
           </h1>
           <p className="text-lg text-white/90 md:text-xl">
-            Une histoire de passion, d&apos;excellence et de tradition culinaire française
+            Une histoire de passion, d&apos;excellence et de tradition culinaire portuguaise
           </p>
         </div>
       </section>
@@ -24,8 +24,8 @@ export default function AboutPage() {
           <h2 className="mb-6 font-serif text-3xl font-bold md:text-4xl">Notre Histoire</h2>
           <div className="space-y-4 text-lg text-muted-foreground">
             <p>
-              Fondé en 1985, le Restaurant Marigel est devenu une institution de la gastronomie française.
-              Notre histoire commence avec Chef Pierre Marigel, qui a ouvert ce restaurant avec une vision
+              Fondé en 1985, le Restaurant SABORES DE PORTUGAL est devenu une institution de la gastronomie portuguaise.
+              Notre histoire commence avec Chef Pierre SABORES DE PORTUGAL, qui a ouvert ce restaurant avec une vision
               simple : créer des expériences culinaires inoubliables en combinant tradition et innovation.
             </p>
             <p>
@@ -69,7 +69,7 @@ export default function AboutPage() {
                 </div>
                 <h3 className="mb-2 text-xl font-semibold">Passion</h3>
                 <p className="text-muted-foreground">
-                  Notre amour pour la cuisine française transparaît dans chaque plat que nous servons.
+                  Notre amour pour la cuisine portuguaise transparaît dans chaque plat que nous servons.
                   C&apos;est plus qu&apos;un travail, c&apos;est notre vocation.
                 </p>
               </CardContent>

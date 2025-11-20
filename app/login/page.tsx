@@ -1,6 +1,9 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
+
+// Disable static generation for this page to prevent build-time Supabase initialization
+export const dynamic = 'force-dynamic';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -83,7 +86,7 @@ function LoginForm() {
     <Card className="w-full max-w-md">
       <CardHeader className="text-center">
         <div className="mb-4 font-serif text-3xl font-bold text-restaurant-burgundy">
-          Marigel
+          SABORES DE PORTUGAL
         </div>
         <CardTitle>Admin Login</CardTitle>
         <CardDescription>

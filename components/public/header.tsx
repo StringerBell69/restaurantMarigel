@@ -21,7 +21,7 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
           <div className="font-serif text-2xl font-bold text-restaurant-burgundy">
-            Marigel
+            SABORES DE PORTUGAL
           </div>
         </Link>
 

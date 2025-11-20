@@ -1,4 +1,4 @@
-# Restaurant Marigel - Enterprise Reservation System
+# Restaurant SABORES DE PORTUGAL - Enterprise Reservation System
 
 A complete, production-ready restaurant reservation system with advanced backoffice management, table mapping, OTP verification, and multi-channel communication (WhatsApp + Email + SMS).
 
@@ -96,7 +96,7 @@ A complete, production-ready restaurant reservation system with advanced backoff
 
 ```bash
 git clone <your-repo-url>
-cd restaurantMarigel
+cd restaurantSABORES DE PORTUGAL
 ```
 
 ### 2. Install Dependencies
@@ -182,12 +182,12 @@ SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 
 # Site
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-NEXT_PUBLIC_SITE_NAME=Restaurant Marigel
+NEXT_PUBLIC_SITE_NAME=Restaurant SABORES DE PORTUGAL
 
 # Resend (Email)
 RESEND_API_KEY=your_resend_api_key
 RESEND_FROM_EMAIL=noreply@yourdomain.com
-RESEND_FROM_NAME=Restaurant Marigel
+RESEND_FROM_NAME=Restaurant SABORES DE PORTUGAL
 
 # WhatsApp Business API (optional)
 WHATSAPP_API_KEY=your_api_key
@@ -236,7 +236,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ## 📁 Project Structure
 
 ```
-restaurantMarigel/
+restaurantSABORES DE PORTUGAL/
 ├── app/
 │   ├── (public)/          # Public-facing pages
 │   │   ├── page.tsx       # Home page
@@ -622,6 +622,6 @@ For issues and questions:
 
 ---
 
-**Built with ❤️ for Restaurant Marigel**
+**Built with ❤️ for Restaurant SABORES DE PORTUGAL**
 
 *Enterprise-grade reservation system powered by Next.js, Supabase, and modern web technologies.*

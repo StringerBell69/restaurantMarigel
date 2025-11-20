@@ -1,4 +1,4 @@
-# Drizzle ORM Setup for Restaurant Marigel
+# Drizzle ORM Setup for Restaurant SABORES DE PORTUGAL
 
 This project uses Drizzle ORM for type-safe database queries with Supabase PostgreSQL.
 

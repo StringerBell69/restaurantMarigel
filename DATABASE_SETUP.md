@@ -1,6 +1,6 @@
 # Database Setup Guide
 
-This guide explains how to set up the PostgreSQL database for Restaurant Marigel using Drizzle ORM.
+This guide explains how to set up the PostgreSQL database for Restaurant SABORES DE PORTUGAL using Drizzle ORM.
 
 ## Prerequisites
 
@@ -144,7 +144,7 @@ Performance indexes are created on:
 The seed script inserts:
 
 **Settings:**
-- Restaurant name: "Restaurant Marigel"
+- Restaurant name: "Restaurant SABORES DE PORTUGAL"
 - Booking rules (advance days, minimum hours)
 - Reservation defaults (duration, buffer time)
 - Deposit requirements

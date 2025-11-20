@@ -88,7 +88,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; {currentYear} SABORES DE PORTUGAL. Tous droits réservés.</p>
+          <p>&copy; {currentYear} SABORES DE PORTUGAL. Tous droits réservés. Fait avec <span className="text-restaurant-burgundy">❤️</span> par <a href="https://smbsystem.me" target="_blank" rel="noopener noreferrer">Daniel</a></p>
         </div>
       </div>
     </footer>
