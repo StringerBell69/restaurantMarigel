@@ -1,0 +1,48 @@
+{
+  "name": "SABORES DE PORTUGAL - Restaurant Portugais Givors",
+  "short_name": "Sabores de Portugal",
+  "description": "Restaurant portugais authentique à Givors près de Lyon. Cuisine traditionnelle portugaise, réservation en ligne.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#8B0000",
+  "theme_color": "#8B0000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["food", "restaurant"],
+  "lang": "fr-FR",
+  "dir": "ltr",
+  "scope": "/",
+  "shortcuts": [
+    {
+      "name": "Réserver une table",
+      "short_name": "Réserver",
+      "description": "Réserver une table au restaurant",
+      "url": "/reservation",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "any"
+        }
+      ]
+    },
+    {
+      "name": "Voir le menu",
+      "short_name": "Menu",
+      "description": "Consulter notre menu",
+      "url": "/menu",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "any"
+        }
+      ]
+    }
+  ]
+}
