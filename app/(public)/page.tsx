@@ -2,20 +2,37 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, Clock, Users, Star, Award, Heart, PartyPopper } from "lucide-react";
+import { StructuredData } from "@/components/public/structured-data";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "SABORES DE PORTUGAL - Restaurant Portugais à Givors | Près de Lyon",
+  description: "Découvrez la vraie cuisine portugaise à Givors (Lyon). Restaurant authentique avec spécialités portugaises traditionnelles. Réservation en ligne. 26b rue Joseph Longarini, 69700 Givors. Ouvert mardi, jeudi, vendredi, samedi 11h-22h, dimanche 12h-17h.",
+  keywords: ["restaurant portugais Givors", "restaurant portugais Lyon", "Sabores de Portugal", "cuisine portugaise authentique", "spécialités portugaises", "restaurant Givors"],
+  openGraph: {
+    title: "SABORES DE PORTUGAL - Restaurant Portugais Givors (Lyon)",
+    description: "Restaurant portugais authentique à Givors. Spécialités traditionnelles, ambiance chaleureuse.",
+  },
+};
 
 export default function HomePage() {
   return (
     <div className="flex flex-col">
+      <StructuredData />
+
       {/* Hero Section */}
       <section className="relative flex min-h-[600px] items-center justify-center bg-gradient-to-br from-restaurant-burgundy to-restaurant-burgundy/80 px-4 py-20 text-white">
         <div className="container max-w-4xl text-center">
-          <h1 className="mb-6 font-serif text-5xl font-bold leading-tight md:text-7xl">
-            Les Vraies Saveurs du Portugal
+          <h1 className="mb-4 font-serif text-5xl font-bold leading-tight md:text-7xl">
+            Restaurant Portugais à Givors
           </h1>
+          <p className="mb-6 text-2xl font-semibold text-white/95 md:text-3xl">
+            SABORES DE PORTUGAL - Les Vraies Saveurs du Portugal
+          </p>
           <p className="mb-8 text-lg text-white/90 md:text-xl">
-            Savourez une cuisine exceptionnelle préparée avec passion et servie
-            avec élégance. Réservez votre table pour une expérience culinaire
-            inoubliable.
+            Découvrez la cuisine portugaise authentique près de Lyon.
+            Savourez nos spécialités traditionnelles préparées avec passion dans une ambiance chaleureuse.
+            Réservez votre table pour une expérience culinaire inoubliable.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link href="/reservation">
@@ -196,6 +213,81 @@ export default function HomePage() {
                 Email: info@sumbo.fr
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SEO Rich Content Section */}
+      <section className="border-t bg-white py-16">
+        <div className="container px-4">
+          <div className="mx-auto max-w-4xl">
+            <article className="prose prose-lg max-w-none">
+              <h2 className="mb-6 font-serif text-3xl font-bold text-gray-900">
+                Restaurant Portugais à Givors - Découvrez l&apos;Authentique Cuisine Portugaise près de Lyon
+              </h2>
+
+              <div className="space-y-6 text-gray-700">
+                <p>
+                  <strong>SABORES DE PORTUGAL</strong> est votre destination privilégiée pour découvrir
+                  la véritable <strong>cuisine portugaise à Givors</strong>, dans la région lyonnaise.
+                  Situé au 26b rue Joseph Longarini, notre <strong>restaurant portugais</strong> vous
+                  accueille dans une ambiance chaleureuse et familiale qui vous transportera directement au Portugal.
+                </p>
+
+                <h3 className="font-serif text-2xl font-semibold text-gray-900 mt-8 mb-4">
+                  Une Cuisine Portugaise Authentique près de Lyon
+                </h3>
+                <p>
+                  À la recherche d&apos;un <strong>restaurant portugais à Lyon</strong> ou dans ses environs ?
+                  SABORES DE PORTUGAL à Givors propose des <strong>spécialités portugaises traditionnelles</strong>
+                  préparées avec passion selon les recettes authentiques transmises de génération en génération.
+                  Notre chef met un point d&apos;honneur à utiliser des ingrédients frais et de qualité pour
+                  vous offrir une expérience culinaire inoubliable.
+                </p>
+
+                <h3 className="font-serif text-2xl font-semibold text-gray-900 mt-8 mb-4">
+                  Réservation Facile en Ligne
+                </h3>
+                <p>
+                  Réservez votre table en quelques clics grâce à notre système de <strong>réservation
+                  en ligne</strong>. Que ce soit pour un dîner en famille, un repas entre amis ou un
+                  événement spécial, notre restaurant peut accueillir de 2 à 6 personnes par table,
+                  et jusqu&apos;à 38 personnes pour une privatisation complète du restaurant.
+                </p>
+
+                <h3 className="font-serif text-2xl font-semibold text-gray-900 mt-8 mb-4">
+                  Horaires et Localisation
+                </h3>
+                <p>
+                  Notre <strong>restaurant à Givors</strong> est ouvert les mardis, jeudis, vendredis
+                  et samedis de 11h00 à 22h00, ainsi que le dimanche de 12h00 à 17h00. Fermé les lundis
+                  et mercredis. Facilement accessible depuis Lyon et la région Auvergne-Rhône-Alpes,
+                  nous sommes situés à Givors (69700), à quelques minutes de Lyon sud.
+                </p>
+
+                <h3 className="font-serif text-2xl font-semibold text-gray-900 mt-8 mb-4">
+                  Événements Privés et Célébrations
+                </h3>
+                <p>
+                  SABORES DE PORTUGAL est également l&apos;endroit idéal pour vos événements privés,
+                  anniversaires, réunions de famille ou dîners d&apos;affaires. Nous proposons la
+                  privatisation complète du restaurant pour des groupes de 15 à 38 personnes, avec
+                  un service personnalisé et une attention particulière à chaque détail.
+                </p>
+
+                <div className="mt-8 rounded-lg bg-restaurant-burgundy/5 p-6 border border-restaurant-burgundy/20">
+                  <h4 className="font-semibold text-lg mb-2 text-gray-900">
+                    Mots-clés : Restaurant Portugais Givors, Restaurant Portugais Lyon, Sabores de Portugal
+                  </h4>
+                  <p className="text-sm text-gray-600">
+                    Cuisine portugaise authentique • Spécialités portugaises • Restaurant Givors •
+                    Restaurant Lyon sud • Réservation en ligne • Privatisation restaurant •
+                    Événements privés • Cuisine traditionnelle • Ambiance familiale •
+                    Restaurant près de Lyon • Gastronomie portugaise
+                  </p>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
       </section>
