@@ -4,8 +4,9 @@ import { createClient } from '@/lib/supabase/server';
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const supabase = await createClient();
     const {
@@ -19,7 +20,7 @@ export async function POST(
     const body = await request.json().catch(() => ({}));
     const reason = body.reason || 'Cancelled by admin';
 
-    const result = await cancelReservation(params.id, reason);
+    const result = await cancelReservation(id, reason);
 
     return NextResponse.json({ success: true, data: result });
   } catch (error) {

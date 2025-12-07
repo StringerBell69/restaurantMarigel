@@ -9,16 +9,17 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 interface CustomerDetailsPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function CustomerDetailsPage({ params }: CustomerDetailsPageProps) {
+  const { id } = await params;
   const [customer] = await db
     .select()
     .from(customers)
-    .where(eq(customers.id, params.id))
+    .where(eq(customers.id, id))
     .limit(1);
 
   if (!customer) {
@@ -29,7 +30,7 @@ export default async function CustomerDetailsPage({ params }: CustomerDetailsPag
   const customerReservations = await db
     .select()
     .from(reservations)
-    .where(eq(reservations.customerId, params.id))
+    .where(eq(reservations.customerId, id))
     .orderBy(desc(reservations.reservationDate));
 
   const upcomingReservations = customerReservations.filter(

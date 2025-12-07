@@ -4,8 +4,9 @@ import { createClient } from '@/lib/supabase/server';
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const supabase = await createClient();
     const {
@@ -41,7 +42,7 @@ export async function PATCH(
       );
     }
 
-    const result = await updateReservation(params.id, { status });
+    const result = await updateReservation(id, { status });
 
     return NextResponse.json({ success: true, data: result });
   } catch (error) {

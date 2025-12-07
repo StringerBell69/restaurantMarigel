@@ -9,10 +9,10 @@ import { eq } from 'drizzle-orm';
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     // Update reservation status to 'checked_in' and set check-in timestamp
     const now = new Date();
